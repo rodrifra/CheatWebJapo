@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Japonés</title>
+<style>
+  :root {
+    --bg: #faf9f6; --surface: #ffffff; --border: #e8e4dc; --border-strong: #d0ccc0;
+    --text-primary: #1a1814; --text-secondary: #6b6660; --text-muted: #9e9a94;
+    --accent-jp: #c0392b; --accent-jp-soft: #f4dcd8; --font-jp: 'Noto Serif JP', serif;
+    --font-body: 'Inter', system-ui, sans-serif; --radius: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #18171a; --surface: #222025; --border: #35323a; --border-strong: #4a4750;
+      --text-primary: #f0ede8; --text-secondary: #a09a94; --text-muted: #6b6660;
+      --accent-jp-soft: #3a2420;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); min-height: 100vh; }
+
+  /* TOPBAR y TABS (Menú) */
+  .topbar { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 200; display: flex; align-items: center; }
+  .brand-title { font-size: 1.15rem; font-weight: 700; }
+  .tabs { display: flex; gap: 0.3rem; padding: 0 1.5rem; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 65px; z-index: 190; overflow-x: auto; }
+  .tab-btn { padding: 0.75rem 1.1rem; border: none; background: none; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; }
+  .tab-btn:hover { color: var(--text-primary); }
+  .tab-btn.active { color: var(--accent-jp); border-bottom-color: var(--accent-jp); }
+
+  .tab-panel { display: none; padding: 2rem 1.5rem; max-width: 800px; margin: 0 auto; }
+  .tab-panel.active { display: block; }
+
+  /* ESTADO DE CARGA / CONSTRUCCIÓN */
+  .construction-msg { text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
+  .construction-msg h2 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-secondary); }
+  .construction-msg p { font-size: 0.95rem; }
+
+  /* PESTAÑA: CONJUGACIONES */
+  .conj-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .conj-btn { padding: 0.5rem 1rem; border: 1px solid var(--border-strong); border-radius: 8px; background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 0.9rem; transition: all 0.15s; }
+  .conj-btn:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+  .conj-btn.active { background: var(--accent-jp); color: #fff; border-color: var(--accent-jp); }
+  
+  .conj-content { display: none; background: var(--surface); padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); }
+  .conj-content.active { display: block; }
+  
+  .conj-sub-buttons { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+  .conj-sub-btn { padding: 0.3rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; transition: all 0.15s; }
+  .conj-sub-btn.active { background: var(--text-secondary); color: var(--surface); border-color: var(--text-secondary); }
+  .conj-sub-content { display: none; }
+  .conj-sub-content.active { display: block; }
+
+  .conj-group { margin-bottom: 1.5rem; }
+  .conj-group:last-child { margin-bottom: 0; }
+  .conj-group h3 { font-size: 1rem; color: var(--accent-jp); margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+  .conj-group p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+  .example-jp { font-family: var(--font-jp); font-size: 1.05rem; color: var(--text-primary); }
+
+  /* PESTAÑA: VOCABULARIO */
+  .vocab-controls { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .search-box { flex: 1; min-width: 200px; padding: 0.6rem 1rem; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text-primary); font-size: 0.9rem; outline: none; }
+  .search-box:focus { border-color: var(--accent-jp); }
+  .filter-select { padding: 0.6rem 1rem; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text-primary); font-size: 0.9rem; cursor: pointer; outline: none; }
+
+  .vocab-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .vocab-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); }
+  .vocab-item:last-child { border-bottom: none; }
+  .vocab-info { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .vocab-word { font-family: var(--font-jp); font-size: 1.2rem; font-weight: 600; }
+  .vocab-reading { font-size: 0.85rem; color: var(--text-muted); }
+  .vocab-trans { font-size: 0.95rem; color: var(--text-secondary); }
+  .vocab-type { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 4px; background: var(--bg); border: 1px solid var(--border); white-space: nowrap; }
+  .type-verb { color: var(--accent-jp); border-color: var(--accent-jp-soft); background: var(--accent-jp-soft); }
+  .verb-btn { background: none; border: none; font-family: inherit; font-size: inherit; color: inherit; cursor: pointer; padding: 0; text-align: left; transition: color 0.15s; }
+  .verb-btn:hover { color: var(--accent-jp); text-decoration: underline; }
+
+  /* MODAL (Tarjeta flotante) */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px); display: flex; align-items: center; justify-content: center; padding: 1rem; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .modal-content { background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateY(20px); transition: transform 0.2s; max-height: 90vh; overflow-y: auto; }
+  .modal-overlay.active .modal-content { transform: translateY(0); }
+  .modal-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; }
+  .modal-title { font-family: var(--font-jp); font-size: 1.5rem; font-weight: 700; }
+  .modal-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.2rem; }
+  .modal-close { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted); }
+  .modal-close:hover { color: var(--accent-jp); }
+  .modal-body { padding: 1.5rem; }
+  .conj-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .conj-table td { padding: 0.6rem 0; border-bottom: 1px dashed var(--border); }
+  .conj-table tr:last-child td { border-bottom: none; }
+  .conj-label { color: var(--text-secondary); width: 45%; }
+  .conj-val { font-family: var(--font-jp); font-size: 1.1rem; font-weight: 500; }
+
+    /* Botones de filtro de vocabulario */
+  .vocab-type-btn {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .vocab-type-btn:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+  .vocab-type-btn.active { background: var(--accent-jp); color: #fff; border-color: var(--accent-jp); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .tab-panel { padding: 1rem; }
+    .vocab-item { flex-direction: column; align-items: flex-start; gap: 0.8rem; padding: 1rem; }
+    .vocab-item > div:last-child { width: 100%; justify-content: space-between; display: flex; }
+    .conj-buttons { display: grid; grid-template-columns: 1fr 1fr; }
+    .conj-btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="brand-title">Manual de Japonés</span>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn" data-tab="gramatica" onclick="switchTab('gramatica')">Gramática</button>
+  <button class="tab-btn active" data-tab="conjugaciones" onclick="switchTab('conjugaciones')">Conjugaciones</button>
+  <button class="tab-btn" data-tab="vocabulario" onclick="switchTab('vocabulario')">Vocabulario</button>
+  <button class="tab-btn" data-tab="tests" onclick="switchTab('tests')">Tests</button>
+</div>
+
+<!-- PANEL 1: GRAMÁTICA -->
+<div class="tab-panel" id="panel-gramatica" style="padding: 0; max-width: 100%; margin: 0; height: calc(100vh - 113px);">
+  <div style="display: flex; height: 100%; background: var(--surface);">
+
+    <!-- SIDEBAR JERÁRQUICO (Categorías y Subcategorías) -->
+    <div style="width: 300px; border-right: 1px solid var(--border); background: var(--bg); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column;">
+      <div style="padding: 1rem; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border);">
+        Temas de Gramática
+      </div>
+
+      <!-- BUSCADOR CON ICONOS -->
+      <div style="padding: 0.8rem; border-bottom: 1px solid var(--border); position: relative;">
+        <span style="position: absolute; left: 1.3rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;">🔍</span>
+        <input type="text" id="gramSearchInput" placeholder="Buscar regla..." oninput="filtrarGramatica()" style="width: 100%; padding: 0.6rem 2.5rem 0.6rem 2.5rem; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); color: var(--text-primary); font-size: 0.85rem; outline: none;">
+        <button id="gramClearBtn" onclick="limpiarBusquedaGramatica()" style="display: none; position: absolute; right: 1.3rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;">✕</button>
+      </div>
+
+      <div id="gramSidebar" style="flex: 1; overflow-y: auto;"></div>
+    </div>
+
+    <!-- CONTENIDO DE LAS REGLAS -->
+    <div style="flex: 1; overflow-y: auto; position: relative;" id="gramContent">
+
+      <!-- Título de la subcategoría seleccionada (STICKY) -->
+      <div id="gramHeader" style="display: none; position: sticky; top: 0; z-index: 10; background: var(--surface); padding: 1.5rem 2rem 1rem 2rem; border-bottom: 1px solid var(--border);">
+        <h2 id="gramSubcategoryTitle" style="color: var(--accent-jp); margin: 0;">Subcategoría</h2>
+      </div>
+
+      <!-- Contenedor de las tarjetas de reglas (con padding para que no choquen con el header) -->
+      <div id="gramRulesList" style="padding: 1.5rem 2rem 2rem 2rem;">
+        <div class="construction-msg">
+          <h2>Selecciona un tema</h2>
+          <p>A la izquierda tienes los conceptos gramaticales.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 2: CONJUGACIONES (El Manual) -->
+<div class="tab-panel active" id="panel-conjugaciones">
+  <div class="conj-buttons" id="conj-main-buttons">
+    <button class="conj-btn active" onclick="showConjMain('te', this)">Forma て</button>
+    <button class="conj-btn" onclick="showConjMain('masu', this)">Forma ます</button>
+    <button class="conj-btn" onclick="showConjMain('nai', this)">Forma ない</button>
+    <button class="conj-btn" onclick="showConjMain('ta', this)">Forma た (Pasado)</button>
+    <button class="conj-btn" onclick="showConjMain('adjetivos', this)">Adjetivos</button>
+    <button class="conj-btn" onclick="showConjMain('transitividad', this)">Trans/Intrans</button>
+  </div>
+
+  <!-- CONTENEDOR: FORMA て -->
+  <div class="conj-content active" id="conj-main-te">
+    <div class="conj-sub-buttons">
+      <button class="conj-sub-btn active" onclick="showSubConj('te', 'afirmativa', this)">Afirmativa</button>
+      <button class="conj-sub-btn" onclick="showSubConj('te', 'negativa', this)">Negativa</button>
+    </div>
+    
+    <div class="conj-sub-content active" id="conj-te-afirmativa">
+      <div class="conj-group">
+        <h3>Verbos Grupo 1 (Godan)</h3>
+        <p>
+          • <strong>う, つ, る</strong> → <strong>って</strong> (<span class="example-jp">買う → 買って</span>)<br>
+          • <strong>む, ぶ, ぬ</strong> → <strong>んで</strong> (<span class="example-jp">飲む → 飲んで</span>)<br>
+          • <strong>く</strong> → <strong>いて</strong> (<span class="example-jp">書く → 書いて</span>) <em>Excepción: 行く → 行って</em><br>
+          • <strong>ぐ</strong> → <strong>いで</strong> (<span class="example-jp">泳ぐ → 泳いで</span>)<br>
+          • <strong>す</strong> → <strong>して</strong> (<span class="example-jp">話す → 話して</span>)
+        </p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 2 (Ichidan) y Grupo 3 (Irregulares)</h3>
+        <p>• Grupo 2: Se quita <strong>る</strong> y se añade <strong>て</strong> (<span class="example-jp">食べる → 食べて</span>)<br>
+        • Grupo 3: <span class="example-jp">する → して</span>, <span class="example-jp">来る → 来て</span></p>
+      </div>
+    </div>
+
+    <div class="conj-sub-content" id="conj-te-negativa">
+      <div class="conj-group">
+        <h3>Regla General (Todos los grupos)</h3>
+        <p>Para la forma て negativa, se usa la <strong>forma ない</strong> y se le quita la <strong>い</strong> final, añadiendo <strong>で</strong>.<br>
+        • 食べない → 食べないで (Sin comer)<br>
+        • 行かない → 行かないで (Sin ir)<br>
+        • する → しないで, 来る → 来ないで</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR: FORMA ます -->
+  <div class="conj-content" id="conj-main-masu">
+    <div class="conj-sub-buttons">
+      <button class="conj-sub-btn active" onclick="showSubConj('masu', 'afirmativa', this)">Afirmativa</button>
+      <button class="conj-sub-btn" onclick="showSubConj('masu', 'negativa', this)">Negativa</button>
+    </div>
+    
+    <div class="conj-sub-content active" id="conj-masu-afirmativa">
+      <div class="conj-group">
+        <h3>Grupo 1 (Godan)</h3>
+        <p>Vocal final <strong>u</strong> → <strong>i</strong> + ます. (<span class="example-jp">飲む → 飲みます</span>)</p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 2 y 3</h3>
+        <p>• Grupo 2: Quitar <strong>る</strong> + ます (<span class="example-jp">食べる → 食べます</span>)<br>
+        • Grupo 3: <span class="example-jp">する → します</span>, <span class="example-jp">来る → 来ます</span></p>
+      </div>
+      <div class="conj-group">
+        <h3>Formas Corteses Avanzadas</h3>
+        <p>• お願いいたします (humilde de "por favor")<br>
+        • ～ております (humilde de "estar haciendo")<br>
+        • ～でございます (muy formal de "ser")</p>
+      </div>
+    </div>
+
+    <div class="conj-sub-content" id="conj-masu-negativa">
+      <div class="conj-group">
+        <h3>Regla General (Todos los grupos)</h3>
+        <p>Se toma la forma ます y se cambia por <strong>ません</strong>.<br>
+        • 飲みます → 飲みません<br>
+        • 食べます → 食べません<br>
+        • します → しません</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR: FORMA ない -->
+  <div class="conj-content" id="conj-main-nai">
+    <div class="conj-group">
+      <h3>Grupo 1 (Godan)</h3>
+      <p>Vocal final <strong>u</strong> → <strong>a</strong> + ない. (<span class="example-jp">飲む → 飲まない</span>)<br>
+      <em>Excepción: Terminados en う → わない (買う → 買わない)</em></p>
+    </div>
+    <div class="conj-group">
+      <h3>Grupo 2 y 3</h3>
+      <p>• Grupo 2: Quitar <strong>る</strong> + ない (<span class="example-jp">食べる → 食べない</span>)<br>
+      • Grupo 3: <span class="example-jp">する → しない</span>, <span class="example-jp">来る → 来ない</span></p>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR: FORMA た -->
+  <div class="conj-content" id="conj-main-ta">
+    <div class="conj-sub-buttons">
+      <button class="conj-sub-btn active" onclick="showSubConj('ta', 'afirmativa', this)">Afirmativa</button>
+      <button class="conj-sub-btn" onclick="showSubConj('ta', 'negativa', this)">Negativa</button>
+    </div>
+    
+    <div class="conj-sub-content active" id="conj-ta-afirmativa">
+      <div class="conj-group">
+        <h3>Grupo 1 (Godan)</h3>
+        <p>Se forma igual que la <strong>Forma て</strong>, cambiando て/で por た/だ.<br>
+        • う, つ, る → った / む, ぶ, ぬ → んだ / く → いた / ぐ → いだ / す → した</p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 2 y 3</h3>
+        <p>• Grupo 2: Quitar <strong>る</strong> + た (<span class="example-jp">食べる → 食べた</span>)<br>
+        • Grupo 3: <span class="example-jp">する → した</span>, <span class="example-jp">来る → 来た</span></p>
+      </div>
+    </div>
+
+    <div class="conj-sub-content" id="conj-ta-negativa">
+      <div class="conj-group">
+        <h3>Regla General (Todos los grupos)</h3>
+        <p>Se toma la <strong>forma ない</strong> en pasado (quitando la い y añadiendo かった).<br>
+        • 飲まない → 飲まなかった<br>
+        • 食べない → 食べなかった<br>
+        • しない → しなかった</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR: ADJETIVOS -->
+  <div class="conj-content" id="conj-main-adjetivos">
+    <div class="conj-sub-buttons">
+      <button class="conj-sub-btn active" onclick="showSubConj('adj', 'afirmativa', this)">Afirmativa</button>
+      <button class="conj-sub-btn" onclick="showSubConj('adj', 'negativa', this)">Negativa</button>
+    </div>
+    
+    <div class="conj-sub-content active" id="conj-adj-afirmativa">
+      <div class="conj-group">
+        <h3>Adjetivos en い</h3>
+        <p>• Presente: 高い<br>
+        • Pasado: Quitar い + かった (高かった)<br>
+        • Forma て: Quitar い + くて (高くて)<br>
+        <em>Excepción: いい → よかった, よくて</em></p>
+      </div>
+      <div class="conj-group">
+        <h3>Adjetivos en な</h3>
+        <p>• Presente: 静かだ / 静かです<br>
+        • Pasado: 静かだった<br>
+        • Forma て: 静かで</p>
+      </div>
+    </div>
+
+    <div class="conj-sub-content" id="conj-adj-negativa">
+      <div class="conj-group">
+        <h3>Adjetivos en い</h3>
+        <p>• Presente: Quitar い + くない (高くない)<br>
+        • Pasado: Quitar い + くなかった (高くなかった)<br>
+        <em>Excepción: いい → よくない, よくなかった</em></p>
+      </div>
+      <div class="conj-group">
+        <h3>Adjetivos en な</h3>
+        <p>• Presente: 静かじゃない (o ではない)<br>
+        • Pasado: 静かじゃなかった (o ではなかった)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR: TRANSITIVIDAD -->
+  <div class="conj-content" id="conj-main-transitividad">
+    <div class="conj-group">
+      <h3>Transitivos (他動詞)</h3>
+      <p>Llevan objeto directo (partícula を). Alguien hace algo a algo.<br>
+      Ejemplo: <span class="example-jp">ドアを開ける</span> (Abro la puerta).</p>
+    </div>
+    <div class="conj-group">
+      <h3>Intransitivos (自動詞)</h3>
+      <p>No llevan objeto directo, el sujeto sufre la acción por sí mismo.<br>
+      Ejemplo: <span class="example-jp">ドアが開く</span> (La puerta se abre).</p>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 3: VOCABULARIO -->
+<div class="tab-panel" id="panel-vocabulario" style="padding: 0; max-width: 100%; margin: 0; height: calc(100vh - 113px);">
+
+  <div style="display: flex; flex-direction: column; height: 100%;">
+  <!-- CABECERA FIJA (Buscador y Filtros) -->
+  <div style="padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); flex-shrink: 0;">
+
+    <!-- Buscador -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+      <div style="flex: 1; position: relative;">
+        <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;">🔍</span>
+        <input type="text" id="searchInput" class="search-box" placeholder="Buscar palabra, lectura o traducción..." oninput="filterVocab()" style="width: 100%; padding-left: 2.5rem; padding-right: 2.5rem;">
+        <button id="vocabClearBtn" onclick="document.getElementById('searchInput').value=''; filterVocab(); this.style.display='none';" style="display: none; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;">✕</button>
+      </div>
+
+      <!-- Filtro de Nivel -->
+      <select id="levelFilter" class="filter-select" onchange="filterVocab()">
+        <option value="">Todos los niveles</option>
+        <option value="A1">A1</option>
+        <option value="A2.1">A2.1</option>
+        <option value="A2.2">A2.2</option>
+        <option value="A2B1">A2B1</option>
+      </select>
+    </div>
+
+    <!-- Filtros de Tipo -->
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <button class="vocab-type-btn active" data-type="todos" onclick="setFiltroTipo('todos', this)">Todos</button>
+      <button class="vocab-type-btn" data-type="verbo" onclick="setFiltroTipo('verbo', this)">Verbos</button>
+      <button class="vocab-type-btn" data-type="sustantivo" onclick="setFiltroTipo('sustantivo', this)">Sustantivos</button>
+      <button class="vocab-type-btn" data-type="adjetivo_i" onclick="setFiltroTipo('adjetivo_i', this)">Adjetivos い</button>
+      <button class="vocab-type-btn" data-type="adjetivo_na" onclick="setFiltroTipo('adjetivo_na', this)">Adjetivos な</button>
+    </div>
+  </div>
+
+  <!-- LISTA CON SCROLL PROPIO -->
+  <div style="flex: 1; overflow-y: auto; padding: 1.5rem 2rem;">
+    <div class="vocab-list" id="vocabList" style="border: none;">
+      <!-- Aquí se inyectan las palabras -->
+      <div class="construction-msg">
+        <h2>Cargando vocabulario...</h2>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- PANEL 4: TESTS -->
+<div class="tab-panel" id="panel-tests">
+  <div class="construction-msg">
+    <h2>🚧 Tests en construcción</h2>
+    <p>Aquí irá el generador de exámenes con lógica acumulativa por niveles.</p>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="datos_vocabulario.js"></script>
+<script src="datos_gramatica.js"></script>
+<!-- <script src="datos_conjugaciones.js"></script> -->
+<script src="app.js"></script>
+
+<script>
+  // Navegación de pestañas
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabId));
+    document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === `panel-${tabId}`));
+    
+    if (window.appLoaded) {
+      if (tabId === 'vocabulario') window.renderVocabulario();
+    }
+  }
+
+  // Navegación Nivel 1 (Formas)
+  function showConjMain(conjId, btn) {
+    document.querySelectorAll('#conj-main-buttons .conj-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.conj-content').forEach(div => div.classList.toggle('active', div.id === `conj-main-${conjId}`));
+  }
+
+  // Navegación Nivel 2 (Afirmativa/Negativa)
+  function showSubConj(mainId, subId, btn) {
+    const parent = btn.closest('.conj-content');
+    parent.querySelectorAll('.conj-sub-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    parent.querySelectorAll('.conj-sub-content').forEach(div => {
+      div.classList.toggle('active', div.id === `conj-${mainId}-${subId}`);
+    });
+  }
+</script>
+</body>
+</html>
