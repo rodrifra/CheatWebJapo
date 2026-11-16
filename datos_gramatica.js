@@ -196,6 +196,19 @@ const GRAMATICA = [
               excepciones: "No confundir con el でも que significa 'pero' al principio de una frase (接続詞 - setsuzokushi).",
               errores: "Usarlo para sugerencias con verbos (para eso se usa 〜てみませんか)."
           },
+          {
+            id: "P15",
+            patron: "N1 とか N2 とか (Lista abierta informal)",
+            significado: "Cosas como N1 y N2 / N1 o N2, entre otras cosas",
+            forma: "Sustantivo + とか + Sustantivo + とか / Verbo (forma llana) + とか",
+              explicacion: "Se usa para enumerar elementos de forma no exhaustiva, de manera más coloquial que や. Implica que hay más cosas que no se mencionan. También se puede usar con verbos (ej. 食べるとか、寝るとか - cosas como comer o dormir).",
+              ejemplos: [
+                { jp: "休みの日は、映画を見るとか、買い物をするとかします。", es: "Los días de descanso hago cosas como ver películas o ir de compras." },
+                { jp: "お茶とかコーヒーとか、飲み物はありますか。", es: "¿Hay bebidas como té o café?" }
+              ],
+              excepciones: "Es más informal que や. En contextos formales se prefiere や o など.",
+              errores: "Usarlo en lenguaje escrito formal donde se espera や."
+          },
         ]
       },
       {
