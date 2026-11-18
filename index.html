@@ -8,7 +8,8 @@
   :root {
     --bg: #faf9f6; --surface: #ffffff; --border: #e8e4dc; --border-strong: #d0ccc0;
     --text-primary: #1a1814; --text-secondary: #6b6660; --text-muted: #9e9a94;
-    --accent-jp: #c0392b; --accent-jp-soft: #f4dcd8; --font-jp: 'Noto Serif JP', serif;
+    --accent-jp: #c0392b; --accent-jp-soft: #f4dcd8; --font-jp: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --example-jp: #1d6fa5;
     --font-body: 'Inter', system-ui, sans-serif; --radius: 10px;
   }
   @media (prefers-color-scheme: dark) {
@@ -16,6 +17,7 @@
       --bg: #18171a; --surface: #222025; --border: #35323a; --border-strong: #4a4750;
       --text-primary: #f0ede8; --text-secondary: #a09a94; --text-muted: #6b6660;
       --accent-jp-soft: #3a2420;
+      --example-jp: #9cdcfe;
     }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -106,6 +108,9 @@
   }
   .vocab-type-btn:hover { border-color: var(--text-secondary); color: var(--text-primary); }
   .vocab-type-btn.active { background: var(--accent-jp); color: #fff; border-color: var(--accent-jp); }
+  .gram-back { display: none; background: none; border: none; color: var(--accent-jp); font-weight: 600; font-size: 0.9rem; cursor: pointer; padding: 0 0 0.6rem 0; }
+  .exc-btn { margin-left: 0.6rem; padding: 0.1rem 0.6rem; border: 1px solid var(--accent-jp); border-radius: 6px; background: transparent; color: var(--accent-jp); font-size: 0.75rem; font-weight: normal; cursor: pointer; vertical-align: middle; }
+  .exc-btn:hover { background: var(--accent-jp-soft); }
 
   /* RESPONSIVE */
   @media (max-width: 600px) {
@@ -113,7 +118,15 @@
     .vocab-item { flex-direction: column; align-items: flex-start; gap: 0.8rem; padding: 1rem; }
     .vocab-item > div:last-child { width: 100%; justify-content: space-between; display: flex; }
     .conj-buttons { display: grid; grid-template-columns: 1fr 1fr; }
-    .conj-btn { text-align: center; }
+    .conj-btn { text-align: center; }.gram-sidebar { width: 100% !important; border-right: none !important; }
+    .gram-content { display: none !important; width: 100%; }
+    .gram-layout.detalle .gram-sidebar { display: none !important; }
+    .gram-layout.detalle .gram-content { display: block !important; }
+    .gram-back { display: block; }
+    #gramHeader { padding: 1rem !important; }
+    #gramRulesList { padding: 1rem !important; }
+
+
   }
 </style>
 </head>
@@ -132,10 +145,10 @@
 
 <!-- PANEL 1: GRAMÁTICA -->
 <div class="tab-panel" id="panel-gramatica" style="padding: 0; max-width: 100%; margin: 0; height: calc(100vh - 113px);">
-  <div style="display: flex; height: 100%; background: var(--surface);">
+  <div id="gramLayout" class="gram-layout" style="display: flex; height: 100%; background: var(--surface);">
 
     <!-- SIDEBAR JERÁRQUICO (Categorías y Subcategorías) -->
-    <div style="width: 300px; border-right: 1px solid var(--border); background: var(--bg); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column;">
+    <div class="gram-sidebar" style="width: 300px; border-right: 1px solid var(--border); background: var(--bg); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column;">
       <div style="padding: 1rem; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border);">
         Temas de Gramática
       </div>
@@ -151,8 +164,8 @@
     </div>
 
     <!-- CONTENIDO DE LAS REGLAS -->
-    <div style="flex: 1; overflow-y: auto; position: relative;" id="gramContent">
-
+    <div class="gram-content" style="flex: 1; overflow-y: auto; position: relative;" id="gramContent">
+      <button class="gram-back" onclick="volverALista()">← Volver a temas</button>
       <!-- Título de la subcategoría seleccionada (STICKY) -->
       <div id="gramHeader" style="display: none; position: sticky; top: 0; z-index: 10; background: var(--surface); padding: 1.5rem 2rem 1rem 2rem; border-bottom: 1px solid var(--border);">
         <h2 id="gramSubcategoryTitle" style="color: var(--accent-jp); margin: 0;">Subcategoría</h2>
@@ -200,20 +213,32 @@
         </p>
       </div>
       <div class="conj-group">
-        <h3>Grupo 2 (Ichidan) y Grupo 3 (Irregulares)</h3>
-        <p>• Grupo 2: Se quita <strong>る</strong> y se añade <strong>て</strong> (<span class="example-jp">食べる → 食べて</span>)<br>
-        • Grupo 3: <span class="example-jp">する → して</span>, <span class="example-jp">来る → 来て</span></p>
+        <h3>Grupo 2 (Ichidan) <button class="exc-btn" onclick="abrirExcepciones('te')">Excepciones ↗</button></h3>
+        <p>• Se quita <strong>る</strong> y se añade <strong>て</strong> (<span class="example-jp">食べる → 食べて</span>)</p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 3 (Irregulares)</h3>
+        <p>• <span class="example-jp">する → して</span><br>
+        • <span class="example-jp">来る → 来て (くる → きて)</span></p>
       </div>
     </div>
 
     <div class="conj-sub-content" id="conj-te-negativa">
       <div class="conj-group">
         <h3>Regla General (Todos los grupos)</h3>
-        <p>Para la forma て negativa, se usa la <strong>forma ない</strong> y se le quita la <strong>い</strong> final, añadiendo <strong>で</strong>.<br>
+        <p>Para la forma て negativa, se usa la <strong>forma ない</strong>, añadiendo <strong>で</strong>. Significa "sin hacer X" o petición negativa.<br>
         • 食べない → 食べないで (Sin comer)<br>
-        • 行かない → 行かないで (Sin ir)<br>
-        • する → しないで, 来る → 来ないで</p>
+        • 行かない → 行かないで (Sin ir / No te vayas)<br>
+        • する → しないで<br>
+        • 来る → 来ないで (くる → こないで)</p>
       </div>
+      <div class="conj-group">
+         <h3>Variante: なくて</h3>
+        <p>Forma ない: quitar <strong>い</strong> + <strong>くて</strong>. Se usa para causa o motivo.<br>
+         • 分からない → 分からなくて (<span class="example-jp">分からなくて困った</span>: Como no entendía, me vi en apuros)<br>
+         • 食べない → 食べなくて</p>
+      </div>
+
     </div>
   </div>
 
@@ -222,6 +247,8 @@
     <div class="conj-sub-buttons">
       <button class="conj-sub-btn active" onclick="showSubConj('masu', 'afirmativa', this)">Afirmativa</button>
       <button class="conj-sub-btn" onclick="showSubConj('masu', 'negativa', this)">Negativa</button>
+      <button class="conj-sub-btn" onclick="showSubConj('masu', 'pasada', this)">Pasado</button>
+      <button class="conj-sub-btn" onclick="showSubConj('masu', 'pasada-negativa', this)">Pasado negativo</button>
     </div>
     
     <div class="conj-sub-content active" id="conj-masu-afirmativa">
@@ -230,9 +257,12 @@
         <p>Vocal final <strong>u</strong> → <strong>i</strong> + ます. (<span class="example-jp">飲む → 飲みます</span>)</p>
       </div>
       <div class="conj-group">
-        <h3>Grupo 2 y 3</h3>
-        <p>• Grupo 2: Quitar <strong>る</strong> + ます (<span class="example-jp">食べる → 食べます</span>)<br>
-        • Grupo 3: <span class="example-jp">する → します</span>, <span class="example-jp">来る → 来ます</span></p>
+        <h3>Grupo 2 <button class="exc-btn" onclick="abrirExcepciones('masu')">Excepciones ↗</button></h3>
+        <p>Quitar <strong>る</strong> + ます (<span class="example-jp">食べる → 食べます</span>)</p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 3</h3>
+        <p><span class="example-jp">する → します</span><br> <span class="example-jp">来る → 来ます (くる → きます)</span></p>
       </div>
       <div class="conj-group">
         <h3>Formas Corteses Avanzadas</h3>
@@ -248,7 +278,34 @@
         <p>Se toma la forma ます y se cambia por <strong>ません</strong>.<br>
         • 飲みます → 飲みません<br>
         • 食べます → 食べません<br>
-        • します → しません</p>
+        • します → しません<br>
+        • 来ます → 来ません (きます → きません)</p>
+      </div>
+    </div>
+
+    <div class="conj-sub-content" id="conj-masu-pasada">
+      <div class="conj-group">
+        <h3>Grupo 1 (Godan)</h3>
+        <p>Vocal final <strong>u</strong> → <strong>i</strong> + ました. (<span class="example-jp">飲む → 飲みました</span>)</p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 2 <button class="exc-btn" onclick="abrirExcepciones('masuPasado')">Excepciones ↗</button></h3>
+        <p>Quitar <strong>る</strong> + ました (<span class="example-jp">食べる → 食べました</span>)</p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 3</h3>
+        <p><span class="example-jp">する → しました</span><br> <span class="example-jp">来る → 来ました (くる → きました)</span></p>
+      </div>
+    </div>
+
+    <div class="conj-sub-content" id="conj-masu-pasada-negativa">
+      <div class="conj-group">
+        <h3>Regla General (Todos los grupos)</h3>
+        <p>Se toma la forma ません y se añade <strong>でした</strong>.<br>
+        • 飲みません → <span class="example-jp">飲みませんでした</span><br>
+        • 食べません → <span class="example-jp">食べませんでした</span><br>
+        • しません → <span class="example-jp">しませんでした</span><br>
+        • 来ません → <span class="example-jp">来ませんでした (きません → きませんでした)</span></p>
       </div>
     </div>
   </div>
@@ -261,9 +318,12 @@
       <em>Excepción: Terminados en う → わない (買う → 買わない)</em></p>
     </div>
     <div class="conj-group">
-      <h3>Grupo 2 y 3</h3>
-      <p>• Grupo 2: Quitar <strong>る</strong> + ない (<span class="example-jp">食べる → 食べない</span>)<br>
-      • Grupo 3: <span class="example-jp">する → しない</span>, <span class="example-jp">来る → 来ない</span></p>
+      <h3>Grupo 2 <button class="exc-btn" onclick="abrirExcepciones('nai')">Excepciones ↗</button></h3>
+      <p>Quitar <strong>る</strong> + ない (<span class="example-jp">食べる → 食べない</span>)</p>
+    </div>
+    <div class="conj-group">
+      <h3>Grupo 3</h3>
+      <p><span class="example-jp">する → しない</span><br><span class="example-jp">来る → 来ない (くる → こない)</span></p>
     </div>
   </div>
 
@@ -278,12 +338,19 @@
       <div class="conj-group">
         <h3>Grupo 1 (Godan)</h3>
         <p>Se forma igual que la <strong>Forma て</strong>, cambiando て/で por た/だ.<br>
-        • う, つ, る → った / む, ぶ, ぬ → んだ / く → いた / ぐ → いだ / す → した</p>
+        • う, つ, る → った<br>
+        • む, ぶ, ぬ → んだ<br>
+        • く → いた<br>
+        • ぐ → いだ<br>
+        • す → した</p>
       </div>
       <div class="conj-group">
-        <h3>Grupo 2 y 3</h3>
-        <p>• Grupo 2: Quitar <strong>る</strong> + た (<span class="example-jp">食べる → 食べた</span>)<br>
-        • Grupo 3: <span class="example-jp">する → した</span>, <span class="example-jp">来る → 来た</span></p>
+        <h3>Grupo 2 <button class="exc-btn" onclick="abrirExcepciones('ta')">Excepciones ↗</button></h3>
+        <p>Quitar <strong>る</strong> + た (<span class="example-jp">食べる → 食べた</span>)</p>
+      </div>
+      <div class="conj-group">
+        <h3>Grupo 3</h3>
+        <p><span class="example-jp">する → した</span><br><span class="example-jp">来る → 来た (くる → きた)</span></p>
       </div>
     </div>
 
@@ -293,7 +360,8 @@
         <p>Se toma la <strong>forma ない</strong> en pasado (quitando la い y añadiendo かった).<br>
         • 飲まない → 飲まなかった<br>
         • 食べない → 食べなかった<br>
-        • しない → しなかった</p>
+        • しない → しなかった<br>
+        • 来ない → 来なかった (こない → こなかった)</p>
       </div>
     </div>
   </div>

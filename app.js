@@ -4,6 +4,11 @@
 
 window.appLoaded = true;
 
+function norm(s) {
+      return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').normalize('NFC');
+}
+
+
 let tipoFiltroActivo = 'todos';
 
 function setFiltroTipo(tipo, btn) {
@@ -24,7 +29,7 @@ function renderVocabulario() {
     return;
   }
 
-  const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+  const query = norm(document.getElementById('searchInput').value || '').trim();
   const levelFilter = document.getElementById('levelFilter').value;
 
   // Mostrar/ocultar botón de borrar búsqueda
@@ -40,10 +45,10 @@ function renderVocabulario() {
 
     // Filtro de búsqueda
     if (query) {
-      const matchWord = item.palabra.toLowerCase().includes(query);
+      const matchWord = norm(item.palabra).includes(query);
       const matchReadings = item.lecturas.some(l =>
-      l.lectura.toLowerCase().includes(query) ||
-      l.traduccion.toLowerCase().includes(query)
+      norm(l.lectura).includes(query) ||
+      norm(l.traduccion).includes(query)
       );
       if (!matchWord && !matchReadings) return false;
     }
@@ -61,7 +66,7 @@ function renderVocabulario() {
   filtrados.forEach((item, index) => {
     const isVerb = item.tipo === 'verbo';
     const typeLabel = item.tipo.replace('_', ' ').toUpperCase();
-    const mainReading = item.lecturas[0];
+    const mainReading = (levelFilter && item.lecturas.find(l => l.nivel === levelFilter)) || item.lecturas[0];
 
     html += `
     <div class="vocab-item" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem;">
@@ -94,13 +99,13 @@ function abrirModal(index) {
 
   const modalHTML = `
     <div class="modal-overlay active" id="${modalId}" onclick="if(event.target===this) cerrarModal('${modalId}')">
-      <div class="modal-content">
+      <div class="modal-content" role="dialog" aria-modal="true">
         <div class="modal-header">
           <div>
             <div class="modal-title">${verbo.palabra} (${mainReading.lectura})</div>
             <div class="modal-subtitle">${mainReading.traduccion} — ${verbo.transitivo ? 'Transitivo' : 'Intransitivo'}</div>
           </div>
-          <button class="modal-close" onclick="cerrarModal('${modalId}')">✕</button>
+          <button class="modal-close" aria-label="Cerrar" onclick="cerrarModal('${modalId}')">✕</button>
         </div>
         <div class="modal-body">
           <table class="conj-table">
@@ -120,15 +125,75 @@ function abrirModal(index) {
   `;
   
   document.body.insertAdjacentHTML('beforeend', modalHTML);
+  document.addEventListener('keydown', escModal);
   document.body.style.overflow = 'hidden';
+}
+
+function escModal(e) {
+  if (e.key === 'Escape') cerrarModal('modal-dinamico');
 }
 
 function cerrarModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.remove();
+    document.removeEventListener('keydown', escModal);
     document.body.style.overflow = '';
   }
+}
+
+const EXC_G1_COMO_G2 = [
+  ['帰る', 'かえる'], ['入る', 'はいる'], ['切る', 'きる'], ['走る', 'はしる'],
+['知る', 'しる'], ['減る', 'へる'], ['要る', 'いる']
+];
+const EXC_PAREJAS = [
+  { g1: ['帰る', 'かえる'], g2: ['変える'] },
+{ g1: ['切る', 'きる'],   g2: ['着る'] }
+];
+const EXC_FORMAS = {
+  te:         { titulo: 'forma て',     g1: s => s + 'って',   g2: s => s + 'て' },
+  masu:       { titulo: 'forma ます',   g1: s => s + 'ります', g2: s => s + 'ます' },
+  masuPasado: { titulo: 'forma ました', g1: s => s + 'りました', g2: s => s + 'ました' },
+  nai:        { titulo: 'forma ない',   g1: s => s + 'らない', g2: s => s + 'ない' },
+  ta:         { titulo: 'forma た',     g1: s => s + 'った',   g2: s => s + 'た' }
+};
+const stem = v => v.slice(0, -1);
+
+function abrirExcepciones(clave) {
+  const cfg = EXC_FORMAS[clave];
+  if (!cfg) return;
+  const modalId = 'modal-dinamico';
+  const old = document.getElementById(modalId);
+  if (old) old.remove();
+
+  const fila = (a, b) => `<tr><td class="conj-label">${a}</td><td class="conj-val">${b}</td></tr>`;
+  const verbos = EXC_G1_COMO_G2.map(([k, r]) => fila(`${k} (${r})`, cfg.g1(stem(k)))).join('');
+  const parejas = EXC_PAREJAS.map(p => fila(
+    `${p.g1[0]} / ${p.g2[0]} (${p.g1[1]})`,
+                                            `${cfg.g1(stem(p.g1[0]))} / ${cfg.g2(stem(p.g2[0]))}`
+  )).join('');
+
+  document.body.insertAdjacentHTML('beforeend', `
+  <div class="modal-overlay active" id="${modalId}" onclick="if(event.target===this) cerrarModal('${modalId}')">
+  <div class="modal-content" role="dialog" aria-modal="true">
+  <div class="modal-header">
+  <div>
+  <div class="modal-title">Excepciones · ${cfg.titulo}</div>
+  <div class="modal-subtitle">Parecen Grupo 2, pero son Grupo 1: aplica la regla del Grupo 1</div>
+  </div>
+  <button class="modal-close" aria-label="Cerrar" onclick="cerrarModal('${modalId}')">✕</button>
+  </div>
+  <div class="modal-body">
+  <table class="conj-table">
+  ${verbos}
+  <tr><td colspan="2" class="conj-label" style="color:var(--accent-jp); padding-top:1rem">Parejas que se confunden (Grupo 1 / Grupo 2)</td></tr>
+  ${parejas}
+  </table>
+  </div>
+  </div>
+  </div>`);
+  document.addEventListener('keydown', escModal);
+  document.body.style.overflow = 'hidden';
 }
 
 function filterVocab() {
@@ -142,6 +207,7 @@ function filterVocab() {
 let catActiva = 0; 
 let subcatActiva = 0;
 let modoBusqueda = false;
+let estadoPrevioBusqueda = null;
 
 function renderGramaticaSidebar() {
   const sidebar = document.getElementById('gramSidebar');
@@ -170,7 +236,7 @@ function renderGramaticaSidebar() {
       html += `
       <div class="sub-cat" id="subcat-${catIndex}-${subIndex}"
       style="padding: 0.6rem 1rem 0.6rem 2rem; cursor: pointer; font-size: 0.9rem; color: var(--text-muted); border-left: 3px solid transparent; transition: all 0.2s;"
-      onclick="mostrarSubcategoria(${catIndex}, ${subIndex})">
+      onclick="mostrarSubcategoria(${catIndex}, ${subIndex}); entrarDetalle()">
       ${subcat.nombre}
       </div>
       `;
@@ -261,7 +327,7 @@ function mostrarSubcategoria(catIndex, subIndex) {
 
     html += `
     <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-    <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: #fff;">${uso.patron}</h3>
+    <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--text-primary);">${uso.patron}</h3>
     <div style="color: var(--accent-jp); font-weight: bold; font-size: 0.9rem; margin-bottom: 1rem;">${uso.significado}</div>
 
     <div style="font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>Forma:</strong> <span style="background: var(--bg); padding: 2px 6px; border-radius: 4px; font-family: var(--font-jp);">${uso.forma}</span></div>
@@ -271,7 +337,7 @@ function mostrarSubcategoria(catIndex, subIndex) {
     <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem;">Ejemplos</div>
     ${uso.ejemplos.map((e, index) => `
       <div style="margin-bottom: 1rem; padding-bottom: 0.5rem; ${index < uso.ejemplos.length - 1 ? 'border-bottom: 1px dashed var(--border);' : ''}">
-      <div style="font-family: var(--font-jp); font-size: 1.05rem; color: #9cdcfe; margin-bottom: 0.2rem;">${e.jp}</div>
+      <div style="font-family: var(--font-jp); font-size: 1.05rem; color: var(--example-jp); margin-bottom: 0.2rem;">${e.jp}</div>
       <div style="color: var(--text-secondary); font-size: 0.9rem;">${e.es}</div>
       </div>
       `).join('')}
@@ -300,10 +366,16 @@ function filtrarGramatica() {
   if (!query) {
     modoBusqueda = false;
     renderGramaticaSidebar();
-    if (catActiva !== -1) toggleCategoria(catActiva); // Restaurar vista
+    const prev = estadoPrevioBusqueda;
+    estadoPrevioBusqueda = null;
+    if (prev && prev.cat !== -1) {
+      toggleCategoria(prev.cat);
+      mostrarSubcategoria(prev.cat, prev.sub);
+    } else if (catActiva !== -1) toggleCategoria(catActiva);
     return;
   }
 
+  if (!modoBusqueda) estadoPrevioBusqueda = { cat: catActiva, sub: subcatActiva };
   modoBusqueda = true;
   let html = '';
   let primerResultadoCat = -1;
@@ -335,7 +407,7 @@ function filtrarGramatica() {
         catHtml += `
         <div class="sub-cat" id="search-subcat-${catIndex}-${subIndex}"
         style="padding: 0.6rem 1rem 0.6rem 2rem; cursor: pointer; font-size: 0.9rem; color: var(--text-muted); border-left: 3px solid transparent;"
-        onclick="mostrarSubcategoria(${catIndex}, ${subIndex})">
+        onclick="mostrarSubcategoria(${catIndex}, ${subIndex}); entrarDetalle()">
         ${subcat.nombre} <span style="font-size: 0.75rem; opacity: 0.7;">(${usosFiltrados.length})</span>
         </div>
         `;
@@ -362,6 +434,14 @@ function filtrarGramatica() {
 function limpiarBusquedaGramatica() {
   document.getElementById('gramSearchInput').value = '';
   filtrarGramatica();
+}
+
+function entrarDetalle() {
+  document.getElementById('gramLayout').classList.add('detalle');
+  document.getElementById('gramContent').scrollTop = 0;
+}
+function volverALista() {
+  document.getElementById('gramLayout').classList.remove('detalle');
 }
 
 // ==========================================
