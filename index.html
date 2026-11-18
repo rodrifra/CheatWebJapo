@@ -4,28 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manual de Japonés</title>
+<script>
+  try { const t = localStorage.getItem('tema'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
 <style>
-  :root {
-    --bg: #faf9f6; --surface: #ffffff; --border: #e8e4dc; --border-strong: #d0ccc0;
-    --text-primary: #1a1814; --text-secondary: #6b6660; --text-muted: #9e9a94;
-    --accent-jp: #c0392b; --accent-jp-soft: #f4dcd8; --font-jp: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
-    --example-jp: #1d6fa5;
+    :root {
+    color-scheme: light dark;
+    --bg: light-dark(#faf9f6, #18171a);
+    --surface: light-dark(#ffffff, #222025);
+    --border: light-dark(#e8e4dc, #35323a);
+    --border-strong: light-dark(#d0ccc0, #4a4750);
+    --text-primary: light-dark(#1a1814, #f0ede8);
+    --text-secondary: light-dark(#6b6660, #a09a94);
+    --text-muted: light-dark(#9e9a94, #6b6660);
+    --accent-jp: #c0392b;
+    --accent-jp-soft: light-dark(#f4dcd8, #3a2420);
+    --example-jp: light-dark(#1d6fa5, #9cdcfe);
+    --sel-jp: light-dark(#0f766e, #fb923c);
+    --font-jp: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
     --font-body: 'Inter', system-ui, sans-serif; --radius: 10px;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #18171a; --surface: #222025; --border: #35323a; --border-strong: #4a4750;
-      --text-primary: #f0ede8; --text-secondary: #a09a94; --text-muted: #6b6660;
-      --accent-jp-soft: #3a2420;
-      --example-jp: #9cdcfe;
-    }
-  }
+  :root[data-theme="light"] { color-scheme: light; }
+  :root[data-theme="dark"]  { color-scheme: dark; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: var(--font-body); background: var(--bg); color: var(--text-primary); min-height: 100vh; }
 
   /* TOPBAR y TABS (Menú) */
   .topbar { padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); background: var(--surface); position: sticky; top: 0; z-index: 200; display: flex; align-items: center; }
   .brand-title { font-size: 1.15rem; font-weight: 700; }
+  .theme-picker { margin-left: auto; display: flex; align-items: center; gap: 0.4rem; }
+  .theme-picker label { font-size: 0.8rem; color: var(--text-muted); }
+  .theme-select { padding: 0.15rem 0.4rem; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); color: var(--text-primary); font-size: 0.8rem; cursor: pointer; outline: none; }
   .tabs { display: flex; gap: 0.3rem; padding: 0 1.5rem; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 65px; z-index: 190; overflow-x: auto; }
   .tab-btn { padding: 0.75rem 1.1rem; border: none; background: none; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; }
   .tab-btn:hover { color: var(--text-primary); }
@@ -44,10 +53,10 @@
   .conj-btn { padding: 0.5rem 1rem; border: 1px solid var(--border-strong); border-radius: 8px; background: transparent; color: var(--text-secondary); cursor: pointer; font-size: 0.9rem; transition: all 0.15s; }
   .conj-btn:hover { border-color: var(--text-secondary); color: var(--text-primary); }
   .conj-btn.active { background: var(--accent-jp); color: #fff; border-color: var(--accent-jp); }
-  
+
   .conj-content { display: none; background: var(--surface); padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--border); }
   .conj-content.active { display: block; }
-  
+
   .conj-sub-buttons { display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
   .conj-sub-btn { padding: 0.3rem 0.8rem; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text-secondary); cursor: pointer; font-size: 0.8rem; transition: all 0.15s; }
   .conj-sub-btn.active { background: var(--text-secondary); color: var(--surface); border-color: var(--text-secondary); }
@@ -67,8 +76,9 @@
   .filter-select { padding: 0.6rem 1rem; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text-primary); font-size: 0.9rem; cursor: pointer; outline: none; }
 
   .vocab-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-  .vocab-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); }
-  .vocab-item:last-child { border-bottom: none; }
+  .vocab-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem; }
+  .vocab-meta { display: flex; gap: 1rem; align-items: center; }
+  .vocab-level { font-size: 0.75rem; color: var(--text-muted); }
   .vocab-info { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
   .vocab-word { font-family: var(--font-jp); font-size: 1.2rem; font-weight: 600; }
   .vocab-reading { font-size: 0.85rem; color: var(--text-muted); }
@@ -111,6 +121,48 @@
   .gram-back { display: none; background: none; border: none; color: var(--accent-jp); font-weight: 600; font-size: 0.9rem; cursor: pointer; padding: 0 0 0.6rem 0; }
   .exc-btn { margin-left: 0.6rem; padding: 0.1rem 0.6rem; border: 1px solid var(--accent-jp); border-radius: 6px; background: transparent; color: var(--accent-jp); font-size: 0.75rem; font-weight: normal; cursor: pointer; vertical-align: middle; }
   .exc-btn:hover { background: var(--accent-jp-soft); }
+  .tab-panel.panel-full { padding: 0; max-width: 100%; margin: 0; height: calc(100vh - 113px); }
+  .gram-layout { display: flex; height: 100%; background: var(--surface); }
+  .gram-sidebar { width: 300px; border-right: 1px solid var(--border); background: var(--bg); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; }
+  .gram-sidebar-title { padding: 1rem; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .gram-search { padding: 0.8rem; border-bottom: 1px solid var(--border); position: relative; }
+  .gram-search-icon { position: absolute; left: 1.3rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem; }
+  .gram-search-input { width: 100%; padding: 0.6rem 2.5rem; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); color: var(--text-primary); font-size: 0.85rem; outline: none; }
+  .gram-search-clear { display: none; position: absolute; right: 1.3rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem; }
+  .gram-tree { flex: 1; overflow-y: auto; }
+  .gram-content { flex: 1; overflow-y: auto; position: relative; }
+  .gram-header { display: none; position: sticky; top: 0; z-index: 10; background: var(--surface); padding: 1.5rem 2rem 1rem 2rem; border-bottom: 1px solid var(--border); }
+  .gram-title { color: var(--accent-jp); margin: 0; }
+  .gram-rules { padding: 1.5rem 2rem 2rem 2rem; }
+  .main-cat { padding: 1rem; font-weight: bold; color: var(--text-primary); border-bottom: 1px solid var(--border); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .main-cat.open { background: var(--surface); color: var(--accent-jp); }
+  .cat-icon { font-size: 0.8rem; transition: transform 0.2s; }
+  .main-cat.open .cat-icon { transform: rotate(90deg); }
+  .subcat-container { display: none; background: var(--surface); border-bottom: 1px solid var(--border); }
+  .subcat-container.open { display: block; }
+  .sub-cat { padding: 0.6rem 1rem 0.6rem 2rem; cursor: pointer; font-size: 0.9rem; color: var(--text-muted); border-left: 3px solid transparent; transition: all 0.2s; }
+  .sub-cat.active { border-left-color: var(--sel-jp); color: var(--sel-jp); font-weight: bold; background: var(--bg); }
+  .sub-count { font-size: 0.75rem; opacity: 0.7; }
+  .search-cat { padding: 1rem; font-weight: bold; color: var(--accent-jp); border-bottom: 1px solid var(--border); margin-top: 0.5rem; font-size: 0.9rem; }
+    .rule-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+  .rule-pattern { margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--text-primary); }
+  .rule-meaning { color: var(--accent-jp); font-weight: bold; font-size: 0.9rem; margin-bottom: 1rem; }
+  .rule-form { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .rule-form span { background: var(--bg); padding: 2px 6px; border-radius: 4px; font-family: var(--font-jp); }
+  .rule-explain { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.6; }
+  .rule-examples { background: var(--bg); padding: 1rem; border-radius: 6px; margin-bottom: 1rem; }
+  .rule-examples-title { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+  .rule-example { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px dashed var(--border); }
+  .rule-example:last-child { border-bottom: none; }
+  .rule-example-jp { font-family: var(--font-jp); font-size: 1.05rem; color: var(--example-jp); margin-bottom: 0.2rem; }
+  .rule-example-es { color: var(--text-secondary); font-size: 0.9rem; }
+  .rule-note { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+  .rule-note:last-child { margin-bottom: 0; }
+  .rules-empty { padding: 2rem; text-align: center; color: var(--text-muted); }
+  .side-msg { padding: 1rem; color: var(--text-muted); text-align: center; }
+  .side-error { color: red; text-align: left; }
+  .conj-table .conj-label-accent { color: var(--accent-jp); }
+  .conj-table .conj-section { color: var(--accent-jp); padding-top: 1rem; }
 
   /* RESPONSIVE */
   @media (max-width: 600px) {
@@ -118,15 +170,14 @@
     .vocab-item { flex-direction: column; align-items: flex-start; gap: 0.8rem; padding: 1rem; }
     .vocab-item > div:last-child { width: 100%; justify-content: space-between; display: flex; }
     .conj-buttons { display: grid; grid-template-columns: 1fr 1fr; }
-    .conj-btn { text-align: center; }.gram-sidebar { width: 100% !important; border-right: none !important; }
-    .gram-content { display: none !important; width: 100%; }
-    .gram-layout.detalle .gram-sidebar { display: none !important; }
-    .gram-layout.detalle .gram-content { display: block !important; }
+    .conj-btn { text-align: center; }
+    .gram-sidebar { width: 100%; border-right: none; }
+    .gram-content { display: none; width: 100%; }
+    .gram-layout.detalle .gram-sidebar { display: none; }
+    .gram-layout.detalle .gram-content { display: block; }
     .gram-back { display: block; }
-    #gramHeader { padding: 1rem !important; }
-    #gramRulesList { padding: 1rem !important; }
-
-
+    .gram-header { padding: 1rem; }
+    .gram-rules { padding: 1rem; }
   }
 </style>
 </head>
@@ -134,6 +185,14 @@
 
 <div class="topbar">
   <span class="brand-title">Manual de Japonés</span>
+  <div class="theme-picker">
+     <label for="themeSelect">Tema</label>
+     <select id="themeSelect" class="theme-select" onchange="cambiarTema(this.value)">
+       <option value="system">Sistema</option>
+       <option value="light">Claro</option>
+       <option value="dark">Oscuro</option>
+     </select>
+   </div>
 </div>
 
 <div class="tabs">
@@ -144,41 +203,28 @@
 </div>
 
 <!-- PANEL 1: GRAMÁTICA -->
-<div class="tab-panel" id="panel-gramatica" style="padding: 0; max-width: 100%; margin: 0; height: calc(100vh - 113px);">
-  <div id="gramLayout" class="gram-layout" style="display: flex; height: 100%; background: var(--surface);">
-
-    <!-- SIDEBAR JERÁRQUICO (Categorías y Subcategorías) -->
-    <div class="gram-sidebar" style="width: 300px; border-right: 1px solid var(--border); background: var(--bg); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column;">
-      <div style="padding: 1rem; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border);">
-        Temas de Gramática
+<div class="tab-panel panel-full" id="panel-gramatica">
+  <div id="gramLayout" class="gram-layout">
+    <div class="gram-sidebar">
+      <div class="gram-sidebar-title">Temas de Gramática</div>
+      <div class="gram-search">
+        <span class="gram-search-icon">🔍</span>
+        <input type="text" id="gramSearchInput" class="gram-search-input" placeholder="Buscar regla..." oninput="filtrarGramatica()">
+        <button id="gramClearBtn" class="gram-search-clear" onclick="limpiarBusquedaGramatica()">✕</button>
       </div>
-
-      <!-- BUSCADOR CON ICONOS -->
-      <div style="padding: 0.8rem; border-bottom: 1px solid var(--border); position: relative;">
-        <span style="position: absolute; left: 1.3rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem;">🔍</span>
-        <input type="text" id="gramSearchInput" placeholder="Buscar regla..." oninput="filtrarGramatica()" style="width: 100%; padding: 0.6rem 2.5rem 0.6rem 2.5rem; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); color: var(--text-primary); font-size: 0.85rem; outline: none;">
-        <button id="gramClearBtn" onclick="limpiarBusquedaGramatica()" style="display: none; position: absolute; right: 1.3rem; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;">✕</button>
-      </div>
-
-      <div id="gramSidebar" style="flex: 1; overflow-y: auto;"></div>
+      <div id="gramSidebar" class="gram-tree"></div>
     </div>
-
-    <!-- CONTENIDO DE LAS REGLAS -->
-    <div class="gram-content" style="flex: 1; overflow-y: auto; position: relative;" id="gramContent">
+    <div class="gram-content" id="gramContent">
       <button class="gram-back" onclick="volverALista()">← Volver a temas</button>
-      <!-- Título de la subcategoría seleccionada (STICKY) -->
-      <div id="gramHeader" style="display: none; position: sticky; top: 0; z-index: 10; background: var(--surface); padding: 1.5rem 2rem 1rem 2rem; border-bottom: 1px solid var(--border);">
-        <h2 id="gramSubcategoryTitle" style="color: var(--accent-jp); margin: 0;">Subcategoría</h2>
+      <div id="gramHeader" class="gram-header">
+        <h2 id="gramSubcategoryTitle" class="gram-title">Subcategoría</h2>
       </div>
-
-      <!-- Contenedor de las tarjetas de reglas (con padding para que no choquen con el header) -->
-      <div id="gramRulesList" style="padding: 1.5rem 2rem 2rem 2rem;">
+      <div id="gramRulesList" class="gram-rules">
         <div class="construction-msg">
           <h2>Selecciona un tema</h2>
           <p>A la izquierda tienes los conceptos gramaticales.</p>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -200,7 +246,7 @@
       <button class="conj-sub-btn active" onclick="showSubConj('te', 'afirmativa', this)">Afirmativa</button>
       <button class="conj-sub-btn" onclick="showSubConj('te', 'negativa', this)">Negativa</button>
     </div>
-    
+
     <div class="conj-sub-content active" id="conj-te-afirmativa">
       <div class="conj-group">
         <h3>Verbos Grupo 1 (Godan)</h3>
@@ -250,7 +296,7 @@
       <button class="conj-sub-btn" onclick="showSubConj('masu', 'pasada', this)">Pasado</button>
       <button class="conj-sub-btn" onclick="showSubConj('masu', 'pasada-negativa', this)">Pasado negativo</button>
     </div>
-    
+
     <div class="conj-sub-content active" id="conj-masu-afirmativa">
       <div class="conj-group">
         <h3>Grupo 1 (Godan)</h3>
@@ -333,7 +379,7 @@
       <button class="conj-sub-btn active" onclick="showSubConj('ta', 'afirmativa', this)">Afirmativa</button>
       <button class="conj-sub-btn" onclick="showSubConj('ta', 'negativa', this)">Negativa</button>
     </div>
-    
+
     <div class="conj-sub-content active" id="conj-ta-afirmativa">
       <div class="conj-group">
         <h3>Grupo 1 (Godan)</h3>
@@ -372,7 +418,7 @@
       <button class="conj-sub-btn active" onclick="showSubConj('adj', 'afirmativa', this)">Afirmativa</button>
       <button class="conj-sub-btn" onclick="showSubConj('adj', 'negativa', this)">Negativa</button>
     </div>
-    
+
     <div class="conj-sub-content active" id="conj-adj-afirmativa">
       <div class="conj-group">
         <h3>Adjetivos en い</h3>
@@ -420,7 +466,7 @@
 </div>
 
 <!-- PANEL 3: VOCABULARIO -->
-<div class="tab-panel" id="panel-vocabulario" style="padding: 0; max-width: 100%; margin: 0; height: calc(100vh - 113px);">
+<div class="tab-panel panel-full" id="panel-vocabulario">
 
   <div style="display: flex; flex-direction: column; height: 100%;">
   <!-- CABECERA FIJA (Buscador y Filtros) -->
@@ -486,7 +532,7 @@
   function switchTab(tabId) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabId));
     document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === `panel-${tabId}`));
-    
+
     if (window.appLoaded) {
       if (tabId === 'vocabulario') window.renderVocabulario();
     }
@@ -504,7 +550,7 @@
     const parent = btn.closest('.conj-content');
     parent.querySelectorAll('.conj-sub-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    
+
     parent.querySelectorAll('.conj-sub-content').forEach(div => {
       div.classList.toggle('active', div.id === `conj-${mainId}-${subId}`);
     });
