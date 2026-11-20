@@ -1510,7 +1510,6 @@ const VOCABULARIO = [
   { palabra: "急", lecturas: [{ lectura: "きゅう", traduccion: "de repente", nivel: "A2B1" }], tipo: "adjetivo_na" },
   { palabra: "残念", lecturas: [{ lectura: "ざんねん", traduccion: "lamentable", nivel: "A2B1" }], tipo: "adjetivo_na" },
   { palabra: "失礼", lecturas: [{ lectura: "しつれい", traduccion: "descortés", nivel: "A2B1" }], tipo: "adjetivo_na" },
-  { palabra: "します", lecturas: [{ lectura: "します", traduccion: "hacer", nivel: "A2B1" }], tipo: "verbo", grupo: 3, transitivo: true, conjugaciones: { indicativa: "する", progresiva: "している", pasada: "した", negativa: "しない", imperativa: "しろ", potencial: "できる", condicional: "すれば / したら", volitiva: "しよう" } },
   { palabra: "必死", lecturas: [{ lectura: "ひっし", traduccion: "desesperado", nivel: "A2B1" }], tipo: "adjetivo_na" },
   { palabra: "文化的", lecturas: [{ lectura: "ぶんかてき", traduccion: "cultural", nivel: "A2B1" }], tipo: "adjetivo_na" },
   { palabra: "無駄", lecturas: [{ lectura: "むだ", traduccion: "vano", nivel: "A2B1" }], tipo: "adjetivo_na" },

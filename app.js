@@ -8,6 +8,170 @@ function norm(s) {
   return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').normalize('NFC');
 }
 
+// ==========================================
+// 0. ROMAJI (búsqueda) — bloque completo
+// ==========================================
+const ROMAJI_BASE = {
+  'あ':'a','い':'i','う':'u','え':'e','お':'o',
+  'か':'ka','き':'ki','く':'ku','け':'ke','こ':'ko',
+  'さ':'sa','し':'shi','す':'su','せ':'se','そ':'so',
+  'た':'ta','ち':'chi','つ':'tsu','て':'te','と':'to',
+  'な':'na','に':'ni','ぬ':'nu','ね':'ne','の':'no',
+  'は':'ha','ひ':'hi','ふ':'fu','へ':'he','ほ':'ho',
+  'ま':'ma','み':'mi','む':'mu','め':'me','も':'mo',
+  'や':'ya','ゆ':'yu','よ':'yo',
+  'ら':'ra','り':'ri','る':'ru','れ':'re','ろ':'ro',
+  'わ':'wa','ゐ':'i','ゑ':'e','を':'o','ん':'n',
+  'が':'ga','ぎ':'gi','ぐ':'gu','げ':'ge','ご':'go',
+  'ざ':'za','じ':'ji','ず':'zu','ぜ':'ze','ぞ':'zo',
+  'だ':'da','ぢ':'ji','づ':'zu','で':'de','ど':'do',
+  'ば':'ba','び':'bi','ぶ':'bu','べ':'be','ぼ':'bo',
+  'ぱ':'pa','ぴ':'pi','ぷ':'pu','ぺ':'pe','ぽ':'po','ゔ':'vu'
+};
+const ROMAJI_YOON = {
+  'きゃ':'kya','きゅ':'kyu','きょ':'kyo',
+  'しゃ':'sha','しゅ':'shu','しょ':'sho','しぇ':'she',
+  'ちゃ':'cha','ちゅ':'chu','ちょ':'cho','ちぇ':'che',
+  'にゃ':'nya','にゅ':'nyu','にょ':'nyo',
+  'ひゃ':'hya','ひゅ':'hyu','ひょ':'hyo',
+  'みゃ':'mya','みゅ':'myu','みょ':'myo',
+  'りゃ':'rya','りゅ':'ryu','りょ':'ryo',
+  'ぎゃ':'gya','ぎゅ':'gyu','ぎょ':'gyo',
+  'じゃ':'ja','じゅ':'ju','じょ':'jo','じぇ':'je',
+  'ぢゃ':'ja','ぢゅ':'ju','ぢょ':'jo',
+  'びゃ':'bya','びゅ':'byu','びょ':'byo',
+  'ふぁ':'fa','ふぃ':'fi','ふぇ':'fe','ふぉ':'fo','ふゅ':'fyu',
+  'てぃ':'ti','でぃ':'di','とぅ':'tu','どぅ':'du',
+  'うぃ':'wi','うぇ':'we','うぉ':'wo',
+  'ゔぁ':'va','ゔぃ':'vi','ゔぇ':'ve','ゔぉ':'vo'
+};
+const ROMAJI_SMALL = {'ぁ':'a','ぃ':'i','ぅ':'u','ぇ':'e','ぉ':'o','ゃ':'ya','ゅ':'yu','ょ':'yo','ゎ':'wa'};
+
+function kataToHira(s) {
+  let out = '';
+  for (const ch of String(s || '')) {
+    const c = ch.codePointAt(0);
+    out += (c >= 0x30A1 && c <= 0x30F6) ? String.fromCharCode(c - 0x60) : ch;
+  }
+  return out;
+}
+
+// Kana -> Hepburn. Kanji y signos se DESCARTAN (no se conservan).
+function kanaToRomaji(input) {
+  const s = kataToHira(input);
+  let out = '', i = 0;
+  while (i < s.length) {
+    const ch = s[i];
+    if (ch === 'っ') {
+      const nxt = ROMAJI_YOON[s.substr(i + 1, 2)] || ROMAJI_BASE[s[i + 1]] || '';
+      if (nxt && !'aiueo'.includes(nxt[0])) out += nxt.startsWith('ch') ? 't' : nxt[0];
+      i++; continue;
+    }
+    if (ch === 'ー') {
+      const last = out[out.length - 1];
+      if (last && 'aiueo'.includes(last)) out += last;
+      i++; continue;
+    }
+    const pair = s.substr(i, 2);
+    if (ROMAJI_YOON[pair]) { out += ROMAJI_YOON[pair]; i += 2; continue; }
+    if (ROMAJI_BASE[ch])   { out += ROMAJI_BASE[ch];   i++;   continue; }
+    if (ROMAJI_SMALL[ch])  { out += ROMAJI_SMALL[ch];  i++;   continue; }
+    i++; // desconocido: fuera
+  }
+  return out;
+}
+
+// Query ASCII del usuario: NO pasa por el conversor kana.
+function claveQuery(s) {
+  const r = String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  return r.replace(/ou|oo|uu|aa|ii|ee/g, m => m[0]);
+}
+
+function claveCampo(s) {
+  return claveQuery(kanaToRomaji(s));
+}
+
+function claveCampoGramatica(texto) {
+  const kana = texto.replace(/[^\u3040-\u30ff\u31f0-\u31ff\u4e00-\u9faf]/g, '');
+  return claveQuery(kanaToRomaji(kana));
+}
+
+function coincideGramatica(uso, query, qRomaji, usarRomaji) {
+  const coincideTexto =
+  norm(uso.patron).includes(query) ||
+  norm(uso.significado).includes(query) ||
+  norm(uso.forma).includes(query) ||
+  (uso.explicacion && norm(uso.explicacion).includes(query));
+
+  if (!usarRomaji) return coincideTexto;
+
+  const idx = getGramIndex().find(i => i.uso === uso);
+  return coincideTexto || (idx && idx.romaji.some(r => r.includes(qRomaji)));
+}
+
+let _gramIndex = null;
+function getGramIndex() {
+  if (_gramIndex) return _gramIndex;
+  _gramIndex = [];
+
+  GRAMATICA.forEach((cat, catIdx) => {
+    cat.subcategorias.forEach((subcat, subIdx) => {
+      subcat.usos.forEach(uso => {
+        const romajiCampos = [];
+
+        // Indexar patron
+        const rPatron = claveCampoGramatica(uso.patron);
+        if (rPatron) romajiCampos.push(rPatron);
+
+        // Indexar forma
+        const rForma = claveCampoGramatica(uso.forma);
+        if (rForma && romajiCampos.indexOf(rForma) === -1) romajiCampos.push(rForma);
+
+        // Indexar explicacion
+        if (uso.explicacion) {
+          const rExp = claveCampoGramatica(uso.explicacion);
+          if (rExp && romajiCampos.indexOf(rExp) === -1) romajiCampos.push(rExp);
+        }
+
+        _gramIndex.push({
+          uso: uso,
+          catIdx: catIdx,
+          subIdx: subIdx,
+          romaji: romajiCampos,
+          textoCompleto: norm([
+            uso.patron,
+            uso.significado,
+            uso.forma,
+            uso.explicacion || ''
+          ].join(' '))
+        });
+      });
+    });
+  });
+
+  return _gramIndex;
+}
+
+let _vocabIndex = null;
+function getVocabIndex() {
+  if (_vocabIndex && _vocabIndex.length === VOCABULARIO.length) return _vocabIndex;
+  _vocabIndex = VOCABULARIO.map(item => {
+    const lecturas = item.lecturas || [];
+    const campos = [item.palabra].concat(lecturas.map(l => l.lectura));
+    const romaji = [];
+    campos.forEach(c => {
+      const k = claveCampo(c);
+      if (k && romaji.indexOf(k) === -1) romaji.push(k);
+    });
+      return {
+        item: item,
+        kana: norm(campos.filter(Boolean).join(' ')),
+                                es: norm(lecturas.map(l => l.traduccion).filter(Boolean).join(' ')),
+                                romaji: romaji
+      };
+  });
+  return _vocabIndex;
+}
 
 let tipoFiltroActivo = 'todos';
 
@@ -36,24 +200,27 @@ function renderVocabulario() {
   const clearBtn = document.getElementById('vocabClearBtn');
   if (clearBtn) clearBtn.style.display = query.length > 0 ? 'block' : 'none';
 
-  const filtrados = VOCABULARIO.filter(item => {
-    // Filtro de nivel
+  // Japonés escrito en kana: mínimo 2 caracteres (evita partícula suelta)
+  const MIN_KANA = 2;
+  const hayKana   = /[\u3040-\u30ff\u31f0-\u31ff]/.test(query);
+  const asciiPuro = /^[a-z0-9]+$/.test(query);
+  const qRomaji   = asciiPuro ? claveQuery(query) : '';
+  // Romaji: basta UNA vocal (una mora). "ga" vale, "g" no.
+  const usarKana   = hayKana && query.length >= MIN_KANA;
+  const usarRomaji = asciiPuro && /[aeiou]/.test(qRomaji);
+
+  const filtrados = getVocabIndex().filter(e => {
+    const item = e.item;
     if (levelFilter && !item.lecturas.some(l => l.nivel === levelFilter)) return false;
-
-    // Filtro de tipo
     if (tipoFiltroActivo !== 'todos' && item.tipo !== tipoFiltroActivo) return false;
+    if (!query) return true;
 
-    // Filtro de búsqueda
-    if (query) {
-      const matchWord = norm(item.palabra).includes(query);
-      const matchReadings = item.lecturas.some(l =>
-      norm(l.lectura).includes(query) ||
-      norm(l.traduccion).includes(query)
-      );
-      if (!matchWord && !matchReadings) return false;
-    }
-    return true;
-  });
+    if (e.es.includes(query)) return true;                 // español: 1 carácter
+    if (norm(item.palabra).includes(query)) return true;   // kanji: 1 carácter
+    if (usarKana && e.kana.includes(query)) return true;   // kana: >= 2
+    if (usarRomaji && e.romaji.some(r => r.includes(qRomaji))) return true;
+    return false;
+  }).map(e => e.item);
 
   if (filtrados.length === 0) {
     listContainer.innerHTML = `<div class="construction-msg"><h2>Sin resultados</h2></div>`;
@@ -125,12 +292,12 @@ function abrirModal(index) {
   `;
 
   document.body.insertAdjacentHTML('beforeend', modalHTML);
-  document.addEventListener('keydown', escModal);
   document.body.style.overflow = 'hidden';
 }
 
-function escModal(e) {
-  if (e.key === 'Escape') cerrarModal('modal-dinamico');
+function limpiarBusquedaVocabulario() {
+  document.getElementById('searchInput').value = '';
+  renderVocabulario();
 }
 
 function cerrarModal(modalId) {
@@ -139,6 +306,31 @@ function cerrarModal(modalId) {
     modal.remove();
     document.removeEventListener('keydown', escModal);
     document.body.style.overflow = '';
+  }
+}
+
+function manejarEscape(e) {
+  if (e.key !== 'Escape') return;
+
+  // 1. Si hay un modal abierto, lo cerramos
+  const modalAbierto = document.getElementById('modal-dinamico');
+  if (modalAbierto) {
+    cerrarModal('modal-dinamico');
+    return;
+  }
+
+  // 2. Si el foco está en el buscador de vocabulario y hay texto, lo limpiamos
+  const inputVocab = document.getElementById('searchInput');
+  if (document.activeElement === inputVocab && inputVocab.value.length > 0) {
+    limpiarBusquedaVocabulario();
+    return;
+  }
+
+  // 3. Si el foco está en el buscador de gramática y hay texto, lo limpiamos
+  const inputGram = document.getElementById('gramSearchInput');
+  if (document.activeElement === inputGram && inputGram.value.length > 0) {
+    limpiarBusquedaGramatica();
+    return;
   }
 }
 
@@ -192,7 +384,6 @@ function abrirExcepciones(clave) {
   </div>
   </div>
   </div>`);
-  document.addEventListener('keydown', escModal);
   document.body.style.overflow = 'hidden';
 }
 
@@ -296,11 +487,10 @@ function mostrarSubcategoria(catIndex, subIndex) {
 
   subcat.usos.forEach(uso => {
     if (modoBusqueda && query !== '') {
-      const coincide = uso.patron.toLowerCase().includes(query) ||
-      uso.significado.toLowerCase().includes(query) ||
-      uso.forma.toLowerCase().includes(query) ||
-      (uso.explicacion && uso.explicacion.toLowerCase().includes(query));
-      if (!coincide) return;
+      const asciiPuro = /^[a-z0-9]+$/.test(query);
+      const qRomaji   = asciiPuro ? claveQuery(query) : '';
+      const usarRomaji = asciiPuro && /[aeiou]/.test(qRomaji);
+      if (!coincideGramatica(uso, query, qRomaji, usarRomaji)) return;
     }
 
     html += `
@@ -362,11 +552,12 @@ function filtrarGramatica() {
     let catHasResults = false;
 
     cat.subcategorias.forEach((subcat, subIndex) => {
+      const asciiPuro = /^[a-z0-9]+$/.test(query);
+      const qRomaji   = asciiPuro ? claveQuery(query) : '';
+      const usarRomaji = asciiPuro && /[aeiou]/.test(qRomaji);
+
       const usosFiltrados = subcat.usos.filter(uso =>
-      uso.patron.toLowerCase().includes(query) ||
-      uso.significado.toLowerCase().includes(query) ||
-      uso.forma.toLowerCase().includes(query) ||
-      (uso.explicacion && uso.explicacion.toLowerCase().includes(query))
+      coincideGramatica(uso, query, qRomaji, usarRomaji)
       );
 
       if (usosFiltrados.length > 0) {
@@ -436,9 +627,13 @@ function cambiarTema(valor) {
 
 document.addEventListener('DOMContentLoaded', () => {
   try { const t = localStorage.getItem('tema'); document.getElementById('themeSelect').value = (t === 'light' || t === 'dark') ? t : 'system'; } catch (e) {}
+
   renderVocabulario();
   renderGramaticaSidebar();
-  // Abrir la primera categoría por defecto
+
+  // Único escuchador para la tecla Escape
+  document.addEventListener('keydown', manejarEscape);
+
   if (typeof GRAMATICA !== 'undefined' && GRAMATICA.length > 0) {
     toggleCategoria(0);
   }
