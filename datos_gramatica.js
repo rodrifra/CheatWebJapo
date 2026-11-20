@@ -6,7 +6,7 @@ const GRAMATICA = [
         nombre: "El Tema y el Sujeto (は vs が)",
         usos: [
           {
-            id: "P13",
+            id: "C1S1",
             patron: "は (wa) vs が (ga)",
             significado: "Tema de la conversación vs. Sujeto de la acción",
             forma: "は (Tema) / が (Sujeto)",
@@ -25,7 +25,7 @@ const GRAMATICA = [
         nombre: "Las 3 Partículas Espaciales (El Mapa)",
         usos: [
           {
-            id: "P1",
+            id: "C1P1",
             patron: "に (ni) - La Diana 🎯",
             significado: "Punto exacto (Destino, Existencia, Tiempo, Frecuencia)",
             forma: "Lugar/Tiempo + に",
@@ -41,7 +41,7 @@ const GRAMATICA = [
             errores: "Usar で para destino por calco del español: ✗ 学校で行きます."
           },
           {
-            id: "P2",
+            id: "C1P2",
             patron: "で (de) - La Herramienta/Escenario 🛠️🎭",
             significado: "Medio, instrumento, lugar de acción o causa",
             forma: "Lugar/Herramienta/Sustantivo (causa) + で",
@@ -57,7 +57,7 @@ const GRAMATICA = [
             errores: "Confundir で de lugar con で de medio cuando el sustantivo puede ser ambos (ej. 電話で — siempre es medio)."
           },
           {
-            id: "P3",
+            id: "C1P3",
             patron: "を (o) - El Recorrido / Objeto 🚶‍♂️🍎",
             significado: "Objeto directo o espacio que se atraviesa",
             forma: "Objeto/Espacio + を",
@@ -72,7 +72,7 @@ const GRAMATICA = [
             errores: "Usarlo con verbos de estado."
           },
           {
-            id: "P4",
+            id: "C1P4",
             patron: "へ (e) - Hacia (Dirección)",
             significado: "Hacia / Dirección del movimiento",
             forma: "Lugar + へ + Verbo de movimiento",
@@ -90,7 +90,7 @@ const GRAMATICA = [
         nombre: "Partículas de Conexión (Y / O / Solo / Razones)",
         usos: [
           {
-            id: "P5",
+            id: "C1C1",
             patron: "と (to) - Y (lista cerrada) / Con",
             significado: "Y (lista completa) / Con (compañía)",
             forma: "Sustantivo + と + Sustantivo / Persona + と + Verbo",
@@ -103,7 +103,7 @@ const GRAMATICA = [
             errores: "Usar と para listas infinitas: ✗ リンゴとバナナとイチゴと..."
           },
           {
-            id: "P6",
+            id: "C1C2",
             patron: "や (ya) - Y (lista incompleta)",
             significado: "Y (entre otras cosas)",
             forma: "Sustantivo + や + Sustantivo",
@@ -116,7 +116,7 @@ const GRAMATICA = [
             errores: "Confundir con と (lista completa)."
           },
           {
-            id: "P7",
+            id: "C1C3",
             patron: "か (ka) - O (Elección)",
             significado: "O (Elegir entre opciones)",
             forma: "Sustantivo + か + Sustantivo",
@@ -129,7 +129,7 @@ const GRAMATICA = [
             errores: "Usar と para elecciones cuando quieres decir 'o'."
           },
           {
-            id: "P14",
+            id: "C1C4",
             patron: "も (mo) - También / Tampoco",
             significado: "También... / Tampoco...",
             forma: "Sustantivo + も",
@@ -143,7 +143,7 @@ const GRAMATICA = [
               errores: "Usar は junto a も: ✗ 私はも行きます → ✓ 私も行きます."
           },
           {
-            id: "P8",
+            id: "C1C5",
             patron: "だけ (dake) - Solo (afirmativo)",
             significado: "Solo / Únicamente",
             forma: "Sustantivo + だけ",
@@ -157,7 +157,7 @@ const GRAMATICA = [
               errores: "Confundirlo con しか (que enfatiza la falta de otras cosas y exige verbo negativo)."
           },
           {
-            id: "P9",
+            id: "C1C6",
             patron: "しか (shika) - Solo (con negación)",
             significado: "Solo / Nada más que...",
             forma: "Sustantivo + しか + Verbo en negativo",
@@ -170,7 +170,7 @@ const GRAMATICA = [
             errores: "Usar しか con verbo afirmativo: ✗ 水しかあります → ✓ 水しかありません."
           },
           {
-            id: "P11",
+            id: "C1C7",
             patron: "S1 し、S2 し",
             significado: "Y además... / (Lista de razones o acciones)",
             forma: "Oración 1 (forma llana o cortés) + し、Oración 2 + し",
@@ -183,7 +183,7 @@ const GRAMATICA = [
               errores: "Usarlo para enumerar objetos (para eso se usa や o と)."
           },
           {
-            id: "P12",
+            id: "C1C8",
             patron: "N-でも (Incluso / Sugerencia)",
             significado: "Incluso... / Algo como... (Sugerencia)",
             forma: "Sustantivo + でも",
@@ -197,7 +197,7 @@ const GRAMATICA = [
               errores: "Usarlo para sugerencias con verbos (para eso se usa 〜てみませんか)."
           },
           {
-            id: "P15",
+            id: "C1C9",
             patron: "N1 とか N2 とか (Lista abierta informal)",
             significado: "Cosas como N1 y N2 / N1 o N2, entre otras cosas",
             forma: "Sustantivo + とか + Sustantivo + とか / Verbo (forma llana) + とか",
@@ -215,7 +215,7 @@ const GRAMATICA = [
         nombre: "Preguntas y Cantidades Indefinidas",
         usos: [
           {
-            id: "P9",
+            id: "C1P5",
             patron: "なん／いつ／どこ／いくつ でも ＿＿＿",
             significado: "Cualquier... / En cualquier...",
             forma: "Pronombre interrogativo (何, いつ, どこ, 誰, いくつ) + でも",
@@ -241,8 +241,8 @@ const GRAMATICA = [
         nombre: "Acción y Estado",
         usos: [
           {
-            id: "T1",
-            patron: "V-ています① (Acción en curso)",
+            id: "C2T1",
+            patron: "V-て います (Acción en curso)",
             significado: "Estar haciendo algo (Ahora)",
             forma: "Verbo en forma て + います",
               explicacion: "Describe una acción que está ocurriendo ahora o en un periodo presente. Solo con verbos de acción continua, no con estados.",
@@ -254,8 +254,8 @@ const GRAMATICA = [
               errores: "✗ 知っています como 'estoy sabiendo'. En realidad significa 'sé' (estado)."
           },
           {
-            id: "T2",
-            patron: "V-ています② (Estado resultante)",
+            id: "C2T2",
+            patron: "V-て います (Estado resultante)",
             significado: "Estar en un estado (Resultado)",
             forma: "Verbo intransitivo en forma て + います",
               explicacion: "Indica el estado resultante de una acción o un estado continuo. Se usa con verbos intransitivos.",
@@ -263,11 +263,11 @@ const GRAMATICA = [
                 { jp: "私は東京に住んでいます。", es: "Vivo en Tokio. (Estado)" },
                 { jp: "窓が開いています。", es: "La ventana está abierta. (Estado)" }
               ],
-              excepciones: "No confundir con la acción en curso (T1). Se usa con verbos que indican un cambio de estado.",
+              excepciones: "No confundir con la acción en curso. Se usa con verbos que indican un cambio de estado.",
               errores: "Usarlo con verbos transitivos para indicar estado."
           },
           {
-            id: "T3",
+            id: "C2T3",
             patron: "V-て います／V-て いる＋N（ひと）",
             significado: "Estar... (Estado de una persona) / Persona que está...",
             forma: "Verbo en forma て + います / Verbo en forma て + いる + 人 (N)",
@@ -280,7 +280,7 @@ const GRAMATICA = [
               errores: "Usar la forma diccionario para modificar: ✗ 眼鏡をかける人."
           },
           {
-            id: "T4",
+            id: "C2T4",
             patron: "V-て いました",
             significado: "Estaba haciendo algo (Pasado continuo)",
             forma: "Verbo en forma て + いました",
@@ -293,7 +293,7 @@ const GRAMATICA = [
               errores: "Confundirlo con el pasado simple (見ました - vi)."
           },
           {
-            id: "T11",
+            id: "C2T5",
             patron: "V-て あります",
             significado: "Estar hecho / Estado resultante de una acción intencionada",
             forma: "Verbo transitivo en forma て + あります",
@@ -306,7 +306,7 @@ const GRAMATICA = [
               errores: "Confundirlo con 〜ています (que indica un estado natural o acción en curso)."
           },
           {
-            id: "T12",
+            id: "C2T6",
             patron: "V-て おきます",
             significado: "Hacer algo de antemano / Dejar algo preparado",
             forma: "Verbo en forma て + おきます",
@@ -324,8 +324,8 @@ const GRAMATICA = [
         nombre: "Peticiones y Órdenes",
         usos: [
           {
-            id: "T3",
-            patron: "V-てください (Petición)",
+            id: "C2P1",
+            patron: "V-て ください (Petición)",
             significado: "Por favor, haz...",
             forma: "Verbo en forma て + ください",
               explicacion: "Pedir un favor o dar una instrucción educada.",
@@ -337,7 +337,7 @@ const GRAMATICA = [
               errores: "Usarlo con superiores sin cuidado."
           },
           {
-            id: "T5",
+            id: "C2P2",
             patron: "V-て くださいませんか",
             significado: "¿Sería tan amable de...? (Petición muy educada)",
             forma: "Verbo en forma て + くださいませんか",
@@ -349,8 +349,8 @@ const GRAMATICA = [
               errores: "Usarlo con amigos cercanos."
           },
           {
-            id: "T4",
-            patron: "V-ないでください (Petición negativa)",
+            id: "C2P3",
+            patron: "V-ないで ください (Petición negativa)",
             significado: "Por favor, no hagas...",
             forma: "Verbo en forma ない (sin い) + でください",
               explicacion: "Pedir educadamente que no se haga una acción.",
@@ -367,7 +367,7 @@ const GRAMATICA = [
         nombre: "Secuencias y Conexiones",
         usos: [
           {
-            id: "S1",
+            id: "C2S1",
             patron: "V1-て、V2",
             significado: "Hacer A y luego B (Secuencia)",
             forma: "Verbo 1 en forma て + Verbo 2",
@@ -380,7 +380,7 @@ const GRAMATICA = [
               errores: "Usarlo para acciones simultáneas de dos sujetos diferentes."
           },
           {
-            id: "S2",
+            id: "C2S2",
             patron: "V1-て から、V2",
             significado: "Después de hacer A, hacer B",
             forma: "Verbo 1 en forma て + から、Verbo 2",
@@ -393,7 +393,7 @@ const GRAMATICA = [
               errores: "Usar la forma て normal cuando el orden es estricto."
           },
           {
-            id: "S5",
+            id: "C2S5",
             patron: "V1-ながら V2",
             significado: "Hacer V2 mientras se hace V1",
             forma: "Verbo 1 en forma ます (sin ます) + ながら + Verbo 2",
@@ -411,7 +411,7 @@ const GRAMATICA = [
         nombre: "Conexión de Adjetivos y Sustantivos",
         usos: [
           {
-            id: "A1",
+            id: "C2A1",
             patron: "イA-くて／ナA-で／N で、イA／ナA／…",
             significado: "Y (conexión de adjetivos y sustantivos)",
             forma: "Adjetivo い (quitar い) + くて / Adjetivo な + で / Sustantivo + で",
@@ -425,7 +425,7 @@ const GRAMATICA = [
               errores: "Usar て con adjetivos な o sustantivos: ✗ 静かくて → ✓ 静かで."
           },
           {
-            id: "A2",
+            id: "C2A2",
             patron: "イA-くて／ナA で イA-い／ナA-な N (Modificación)",
             significado: "Un N que es [Adj1] y [Adj2]",
             forma: "Adj 1 (en forma て) + Adj 2 + Sustantivo",
@@ -438,20 +438,21 @@ const GRAMATICA = [
               errores: "Poner el último adjetivo en forma て: ✗ 広くて明るくて部屋です."
           },
           {
-            id: "A3",
+            id: "C2A3",
             patron: "イA-くて／イA-くなくて、ナA-で／ナA-じゃなくて、…",
             significado: "Y (conexión afirmativa y negativa)",
             forma: "Afirmativo: い→くて / な→で. Negativo: い→くなくて / な→じゃなくて",
               explicacion: "Permite conectar un adjetivo afirmativo con uno negativo (o viceversa).",
               ejemplos: [
                 { jp: "この部屋は広くて、綺麗じゃないです。", es: "Esta habitación es amplia pero no bonita." },
-                { jp: "この本は安くなくて、面白いです。", es: "Este libro no es barato, pero es interesante." }
+                { jp: "この本は安くなくて、面白いです。", es: "Este libro no es barato, pero es interesante." },
+                { jp: "この町は静かじゃなくて、にぎやかです。", es: "Esta ciudad no es tranquila, es animada." }
               ],
               excepciones: "Para el negativo de いい: よくなくて.",
               errores: "Usar くて para negativos de adjetivos い: ✗ 高くてない."
           },
           {
-            id: "A4",
+            id: "C2A4",
             patron: "N1 じゃなくて、N2",
             significado: "No es N1, sino N2 (Conexión negativa)",
             forma: "Sustantivo 1 + じゃなくて (o ではなくて) + Sustantivo 2",
@@ -469,7 +470,7 @@ const GRAMATICA = [
         nombre: "Permiso, Prohibición y Otros Usos",
         usos: [
           {
-            id: "PM1",
+            id: "C2PM1",
             patron: "N でも いいですか / V-ても いいですか",
             significado: "¿Está bien si...? / ¿Puedo...?",
             forma: "Sustantivo + でも いいですか / Verbo en forma て + も いいですか",
@@ -482,7 +483,7 @@ const GRAMATICA = [
               errores: "Usarlo para pedir un objeto."
           },
           {
-            id: "PM2",
+            id: "C2PM2",
             patron: "V-ては いけません / V-ちゃ だめです",
             significado: "No se puede... / Está prohibido...",
             forma: "Verbo en forma て + は いけません",
@@ -495,7 +496,7 @@ const GRAMATICA = [
               errores: "Confundirlo con 〜なくてもいいです."
           },
           {
-            id: "C4",
+            id: "C2PM3",
             patron: "（いつ、なに、どこ、だれ）V-て も、＿＿＿",
             significado: "No importa cuándo / qué / dónde / quién...",
             forma: "Interrogativo + Verbo en forma て + も",
@@ -509,7 +510,7 @@ const GRAMATICA = [
               errores: "Usar la forma diccionario en lugar de la forma て."
           },
           {
-            id: "T6",
+            id: "C2PM4",
             patron: "V-て みます",
             significado: "Intentar hacer algo / Probar a hacer algo",
             forma: "Verbo en forma て + みます",
@@ -522,7 +523,7 @@ const GRAMATICA = [
               errores: "Confundirlo con 〜ようとします."
           },
           {
-            id: "T9",
+            id: "C2PM5",
             patron: "V-て しまいました",
             significado: "Hacer algo sin querer / Acabar haciendo algo",
             forma: "Verbo en forma て + しまいました",
@@ -535,7 +536,7 @@ const GRAMATICA = [
               errores: "Usarlo para acciones planeadas con orgullo."
           },
           {
-            id: "T10",
+            id: "C2PM6",
             patron: "V-て あげます",
             significado: "Hacer un favor a alguien (Dar)",
             forma: "Verbo en forma て + あげます",
@@ -545,6 +546,20 @@ const GRAMATICA = [
               ],
               excepciones: "Puede sonar condescendiente con superiores.",
               errores: "Usarlo para favores que recibes."
+          },
+          {
+            id: "C2PM7",
+            patron: "V-なければ なりません／V-なくては いけません",
+            significado: "Tener que / Deber (Obligación)",
+            forma: "Verbo en forma ない sin い + ければ なりません / Verbo en forma ない sin い + くては いけません",
+              explicacion: "Expresa obligación o necesidad: algo que hay que hacer. Las dos formas tienen el mismo significado; なければ なりません es algo más formal.",
+              ejemplos: [
+                { jp: "明日、早く起きなければなりません。", es: "Mañana tengo que levantarme temprano." },
+                { jp: "薬を飲まなくてはいけません。", es: "Tengo que tomar la medicina." },
+                { jp: "宿題をしなければなりません。", es: "Tengo que hacer los deberes." }
+              ],
+              excepciones: "En lenguaje hablado se acorta a なきゃ o なくちゃ: 行かなきゃ ('tengo que ir').",
+              errores: "Confundirlo con なくても いいです ('no hace falta'): 行かなくてもいいです no significa 'tengo que ir'."
           }
         ]
       }
@@ -557,7 +572,7 @@ const GRAMATICA = [
         nombre: "Nominalización y Modificación",
         usos: [
           {
-            id: "N1",
+            id: "C3N1",
             patron: "V-る こと (Nominalización)",
             significado: "El hecho de... / Hacer algo",
             forma: "Verbo en forma diccionario + こと",
@@ -570,8 +585,8 @@ const GRAMATICA = [
               errores: "Usarlo con verbos de estado si no es una acción (ej. ✗ 分かることが好き)."
           },
           {
-            id: "N3",
-            patron: "V（ふつうけい plain form）＋人 / V（ふつうけい plain form）＋N",
+            id: "C3N2",
+            patron: "V（forma llana）＋ 人 / V（forma llana）＋ N",
             significado: "Persona que... / Cosa que... (Modificador de sustantivos)",
             forma: "Verbo/Adjetivo en forma llana + Sustantivo",
               explicacion: "En japonés, las frases que modifican a un sustantivo van delante de él, usando la forma llana.",
@@ -583,20 +598,21 @@ const GRAMATICA = [
               errores: "Usar la forma ます para modificar un sustantivo: ✗ あそこにいます人."
           },
           {
-            id: "N4",
-            patron: "V／イA／ナA（ふつうけい plain form）のは、N です",
+            id: "C3N3",
+            patron: "V／イA／ナA（forma llana）のは、N です",
             significado: "Lo que [verbo/adjetivo] es N / Hacer [verbo] es N",
             forma: "Oración en forma llana + の + は、Sustantivo + です",
               explicacion: "Se usa para nominalizar una acción o un estado y definir qué es. El の sustituye a un sustantivo que se explica después.",
               ejemplos: [
                 { jp: "私が好きなのは、日本のアニメです。", es: "Lo que me gusta son los animes japoneses." },
-                { jp: "一番大切なのは、健康です。", es: "Lo más importante es la salud." }
+                { jp: "日本語を勉強するのは楽しいです。", es: "Estudiar japonés es divertido." },
+                { jp: "一番安いのは、このかばんです。", es: "El más barato es este bolso." }
               ],
               excepciones: "En lugar de の, se puede usar こと en contextos más formales.",
               errores: "Usar が en lugar de は para el tema: ✗ 好きなのが、アニメです."
           },
           {
-            id: "N6",
+            id: "C3N4",
             patron: "イA／ナA ＋ さ",
             significado: "Convertir adjetivos en sustantivos abstractos",
             forma: "Adjetivo い (quitar い) + さ / Adjetivo な (quitar な) + さ",
@@ -614,7 +630,7 @@ const GRAMATICA = [
         nombre: "Cambios, Estados y Decisiones",
         usos: [
           {
-            id: "C1",
+            id: "C3C1",
             patron: "N に／イA-く／ナA-に なります",
             significado: "Convertirse en... / Llegar a ser...",
             forma: "Sustantivo + に + なります / Adjetivo い (sin い) + く + なります / Adjetivo な + に + なります",
@@ -628,7 +644,7 @@ const GRAMATICA = [
               errores: "Usar に con adjetivos い: ✗ 寒いに なりました."
           },
           {
-            id: "C2",
+            id: "C3C2",
             patron: "V-る ように なりました",
             significado: "Haber llegado a poder hacer... / Haberse acostumbrado a...",
             forma: "Verbo en forma diccionario + ように なりました",
@@ -641,7 +657,7 @@ const GRAMATICA = [
               errores: "Usarlo con verbos en forma ます: ✗ 話しますようになりました."
           },
           {
-            id: "C3",
+            id: "C3C3",
             patron: "V-る ことに しました / V-る ことに なりました",
             significado: "He decidido hacer... / Se ha decidido que...",
             forma: "Verbo en forma diccionario + ことに しました / ことになりました",
@@ -654,7 +670,7 @@ const GRAMATICA = [
               errores: "Usarlo para decisiones espontáneas en el momento."
           },
           {
-            id: "C4",
+            id: "C3C4",
             patron: "V-た まま です",
             significado: "Dejar algo como está / Hacer algo sin cambiar el estado",
             forma: "Verbo en forma た + まま",
@@ -667,7 +683,7 @@ const GRAMATICA = [
               errores: "Usarlo con verbos intransitivos: ✗ 窓が開いたまま."
           },
           {
-            id: "C5",
+            id: "C3C5",
             patron: "V-て いきます／きます (Dirección del cambio)",
             significado: "Ir haciendo... / Venir haciendo...",
             forma: "Verbo en forma て + いきます / きます",
@@ -680,7 +696,7 @@ const GRAMATICA = [
               errores: "Usarlo con verbos de estado (ある, いる)."
           },
           {
-            id: "C6",
+            id: "C3C6",
             patron: "V-なく なりました (Cambio negativo)",
             significado: "Dejar de hacer... / Ya no hacer...",
             forma: "Verbo en forma ない (sin い) + く + なりました",
@@ -693,7 +709,7 @@ const GRAMATICA = [
               errores: "Usar la forma diccionario con なく: ✗ 食べるなくなりました."
           },
           {
-            id: "C7",
+            id: "C3C7",
             patron: "N1 を N2 に します",
             significado: "Convertir N1 en N2 / Hacer N1 como N2",
             forma: "Sustantivo 1 + を + Sustantivo 2 + に + します",
@@ -706,7 +722,7 @@ const GRAMATICA = [
               errores: "Usar が en lugar de を: ✗ 部屋が綺麗にします."
           },
           {
-            id: "C8",
+            id: "C3C8",
             patron: "N1 が N2 に なります",
             significado: "N1 se convierte en N2 (Cambio natural)",
             forma: "Sustantivo 1 + が + Sustantivo 2 + に + なります",
@@ -717,6 +733,20 @@ const GRAMATICA = [
               ],
               excepciones: "La diferencia con を に します es que aquí no hay un 'alguien' haciendo la acción.",
               errores: "Usar を en lugar de が: ✗ 氷を水になりました."
+          },
+          {
+            id: "C3C9",
+            patron: "V-た ほうが いいです／V-ない ほうが いいです",
+            significado: "Es mejor que... / Deberías (Consejo)",
+            forma: "Verbo en forma た + ほうが いいです / Verbo en forma ない + ほうが いいです",
+              explicacion: "Da un consejo o recomendación, no una obligación. Con la forma た se aconseja hacer algo; con la forma ない se aconseja no hacerlo.",
+              ejemplos: [
+                { jp: "早く寝たほうがいいです。", es: "Es mejor que te acuestes pronto." },
+                { jp: "薬を飲んだほうがいいですよ。", es: "Deberías tomar la medicina." },
+                { jp: "夜遅くコーヒーを飲まないほうがいいです。", es: "Es mejor no tomar café tarde por la noche." }
+              ],
+              excepciones: "Para aconsejar no hacer algo se usa la forma ない, no la forma た: 行かないほうがいいです.",
+              errores: "Usar なかった en lugar de ない (✗ 行かなかったほうがいいです). Con superiores suena demasiado directo."
           }
         ]
       },
@@ -724,7 +754,7 @@ const GRAMATICA = [
         nombre: "Tiempo, Frecuencia y Condicionales",
         usos: [
           {
-            id: "T1",
+            id: "C3T1",
             patron: "N の まえに、V / V-る まえに",
             significado: "Antes de...",
             forma: "Sustantivo + の + まえに / Verbo en forma diccionario + まえに",
@@ -737,7 +767,7 @@ const GRAMATICA = [
               errores: "Usar la forma た antes de まえに: ✗ 食べたまえに."
           },
           {
-            id: "T2",
+            id: "C3T2",
             patron: "N の あとで、V",
             significado: "Después de...",
             forma: "Sustantivo + の + あとで / Verbo en forma た + あとで",
@@ -750,7 +780,7 @@ const GRAMATICA = [
               errores: "Usar la forma diccionario antes de あとで: ✗ 映画を見るあとで."
           },
           {
-            id: "T3",
+            id: "C3T3",
             patron: "V1-る まで、V2",
             significado: "Hasta que...",
             forma: "Verbo 1 en forma diccionario + まで、Verbo 2",
@@ -762,34 +792,36 @@ const GRAMATICA = [
               errores: "Usar までに para acciones continuas."
           },
           {
-            id: "T4",
-            patron: "N の とき／V-るとき",
+            id: "C3T4",
+            patron: "N の とき／V-る とき",
             significado: "Cuando... / En el momento de...",
             forma: "Sustantivo + の + とき / Verbo (forma llana) + とき",
               explicacion: "Se usa para indicar el momento o la condición en la que ocurre algo.",
               ejemplos: [
                 { jp: "子供のとき、よく遊びました。", es: "Cuando era niño, jugaba mucho." },
-                { jp: "忙しいとき、お茶を飲みます。", es: "Cuando estoy ocupado, bebo té." }
+                { jp: "忙しいとき、お茶を飲みます。", es: "Cuando estoy ocupado, bebo té." },
+                { jp: "日本へ行くとき、パスポートが必要です。", es: "Cuando vas a Japón, necesitas el pasaporte." }
               ],
               excepciones: "Con adjetivos な, se usa な + とき.",
               errores: "Olvidar el な en los adjetivos na: ✗ 静かとき."
           },
           {
-            id: "T5",
+            id: "C3T5",
             patron: "週／月／年 に ～回（ぐらい）",
             significado: "~ veces por semana / mes / año",
             forma: "Periodo + に + Número + 回 (veces) + (ぐらい)",
               explicacion: "Se usa para expresar la frecuencia con la que ocurre algo.",
               ejemplos: [
                 { jp: "週に2回、テニスをします。", es: "Juego al tenis 2 veces por semana." },
-                { jp: "月に1回ぐらい、映画を見ます。", es: "Veo películas más o menos 1 vez al mes." }
+                { jp: "月に1回ぐらい、映画を見ます。", es: "Veo películas más o menos 1 vez al mes." },
+                { jp: "年に2回、旅行します。", es: "Viajo dos veces al año." }
               ],
               excepciones: "Para 'una vez al día' se usa 一日に1回.",
               errores: "Usar la partícula で en lugar de に: ✗ 週で2回."
           },
           {
-            id: "T6",
-            patron: "V-て ～年／～か月に なります",
+            id: "C3T6",
+            patron: "V-て ～年／～か月 に なります",
             significado: "Llevar haciendo algo durante...",
             forma: "Verbo en forma て + 期間 + に なります",
               explicacion: "Indica cuánto tiempo ha pasado desde que se empezó una acción o estado.",
@@ -801,7 +833,7 @@ const GRAMATICA = [
               errores: "Usar ました en lugar de になります."
           },
           {
-            id: "S3",
+            id: "C3T7",
             patron: "S1 ば／なければ、S2",
             significado: "Si... / A menos que... (Condicional formal)",
             forma: "Verbo en forma ば / ない (sin い) + ければ",
@@ -812,6 +844,20 @@ const GRAMATICA = [
               ],
               excepciones: "En el habla coloquial, なければ se acorta a なきゃ.",
               errores: "Usar たら en contextos muy formales."
+          },
+          {
+            id: "C3T8",
+            patron: "V-た ことが あります",
+            significado: "Haber hecho algo alguna vez (Experiencia)",
+            forma: "Verbo en forma た + ことが あります / ありません",
+              explicacion: "Expresa una experiencia que se ha tenido al menos una vez en la vida, sin decir cuándo ocurrió. Para preguntar se usa ことが ありますか. Para decir que nunca se ha hecho, ことが ありません (con 一度も se refuerza: 'ni una sola vez').",
+              ejemplos: [
+                { jp: "日本へ行ったことがあります。", es: "He estado en Japón (alguna vez)." },
+                { jp: "寿司を食べたことがありますか。", es: "¿Has comido sushi alguna vez?" },
+                { jp: "富士山に登ったことがありません。", es: "Nunca he subido al monte Fuji." }
+              ],
+              excepciones: "Suele evitarse con momentos concretos como 昨日 o 去年: para eso se usa el pasado normal.",
+              errores: "Confundirlo con V-る ことが あります ('a veces ocurre'): 日本へ行くことがあります = 'a veces voy a Japón'."
           }
         ]
       },
@@ -819,8 +865,8 @@ const GRAMATICA = [
         nombre: "Habilidad, Deseo y Propósito",
         usos: [
           {
-            id: "H1",
-            patron: "N が V-（られ）ます (Potencial)",
+            id: "C3H1",
+            patron: "N が V-(られ) ます (Potencial)",
             significado: "Poder hacer... / Ser capaz de...",
             forma: "Grupo 1: U→E+ます / Grupo 2: quitar る+られます / Irregulares: できます, こられます",
               explicacion: "Indica la capacidad o posibilidad de realizar una acción.",
@@ -832,7 +878,7 @@ const GRAMATICA = [
               errores: "Usar la partícula を con el potencial."
           },
           {
-            id: "H5",
+            id: "C3H2",
             patron: "V-る ことが できます",
             significado: "Poder hacer... (Habilidad formal)",
             forma: "Verbo en forma diccionario + ことが できます",
@@ -844,7 +890,7 @@ const GRAMATICA = [
               errores: "Usar la forma ます antes de こと: ✗ 話しますことができます."
           },
           {
-            id: "D1",
+            id: "C3H3",
             patron: "V-たいです／V-たくないです",
             significado: "Quiero hacer... / No quiero hacer...",
             forma: "Verbo en forma ます (sin ます) + たいです / たくないです",
@@ -857,7 +903,7 @@ const GRAMATICA = [
               errores: "Usarlo con la forma diccionario: ✗ 行くたい."
           },
           {
-            id: "D2",
+            id: "C3H4",
             patron: "V-つもりです／V-つもりはない",
             significado: "Tengo la intención de... / No tengo la intención de...",
             forma: "Verbo en forma diccionario + つもりです",
@@ -870,8 +916,8 @@ const GRAMATICA = [
               errores: "Usarlo para intenciones de terceras personas."
           },
           {
-            id: "D4",
-            patron: "V-（よ）うと 思っています",
+            id: "C3H5",
+            patron: "V-(よ) うと おもっています",
             significado: "Estoy pensando en hacer...",
             forma: "Verbo en forma volitiva + と 思っています",
               explicacion: "Expresa una intención o un plan que el hablante está considerando.",
@@ -882,8 +928,8 @@ const GRAMATICA = [
               errores: "Usar la forma diccionario."
           },
           {
-            id: "PD1",
-            patron: "S1（V ふつうけい plain form）ように、S2",
+            id: "C3H6",
+            patron: "S1（forma llana）ように、S2",
             significado: "Para que... / De modo que...",
             forma: "Verbo en forma diccionario o negativa + ように",
               explicacion: "Se usa con verbos que no son de acción voluntaria (como 分かる, 見える) o en forma negativa.",
@@ -895,7 +941,7 @@ const GRAMATICA = [
               errores: "Usar ように con verbos de acción voluntaria."
           },
           {
-            id: "PD3",
+            id: "C3H7",
             patron: "V-る／N の ために、＿＿＿",
             significado: "Para... / Con el fin de...",
             forma: "Verbo en forma diccionario + ために / Sustantivo + の + ために",
@@ -908,7 +954,7 @@ const GRAMATICA = [
               errores: "Usar ために con verbos de estado como 分かる."
           },
           {
-            id: "PD4",
+            id: "C3H8",
             patron: "V-る／V-ない ように して います",
             significado: "Estoy intentando hacer... / Estoy procurando no hacer...",
             forma: "Verbo en forma diccionario o negativa + ように して います",
@@ -921,7 +967,7 @@ const GRAMATICA = [
               errores: "Usar la forma て directa."
           },
           {
-            id: "PD5",
+            id: "C3H9",
             patron: "V-る のに いいです／つかいます／…",
             significado: "Es bueno para... / Se usa para...",
             forma: "Verbo en forma diccionario + のに + いいです",
@@ -934,7 +980,7 @@ const GRAMATICA = [
               errores: "Usar la forma た."
           },
           {
-            id: "H6",
+            id: "C3H10",
             patron: "V-やすいです／V-にくいです",
             significado: "Es fácil de... / Es difícil de...",
             forma: "Verbo en forma ます (sin ます) + やすい / にくい",
@@ -952,7 +998,7 @@ const GRAMATICA = [
         nombre: "Apariencia, Grado y Conjetura",
         usos: [
           {
-            id: "A1",
+            id: "C3A1",
             patron: "イA／ナA-そうです (Apariencia)",
             significado: "Parece que... (por lo que veo)",
             forma: "Adjetivo い (quitar い) + そうです / Adjetivo な (quitar な) + そうです",
@@ -965,7 +1011,7 @@ const GRAMATICA = [
               errores: "Usarlo con sustantivos: ✗ 学生そうです."
           },
           {
-            id: "A2",
+            id: "C3A2",
             patron: "イA／ナA-そうな N (Apariencia)",
             significado: "Un N que parece...",
             forma: "Adjetivo い (quitar い) + そうな + Sustantivo",
@@ -978,7 +1024,7 @@ const GRAMATICA = [
               errores: "Olvidar el な."
           },
           {
-            id: "A3",
+            id: "C3A3",
             patron: "S (ふつうけい) そうです (Rumor)",
             significado: "Dicen que... / Se rumorea que...",
             forma: "Verbo/Adjetivo/Sustantivo en forma llana + そうです",
@@ -991,7 +1037,7 @@ const GRAMATICA = [
               errores: "Confundirlo con la apariencia."
           },
           {
-            id: "A5",
+            id: "C3A5",
             patron: "V-そうです／V-そうな N",
             significado: "Parece que va a... / Parece que está...",
             forma: "Verbo en forma ます (sin ます) + そうです / そうな + Sustantivo",
@@ -1005,7 +1051,7 @@ const GRAMATICA = [
               errores: "Usar la forma diccionario antes de そうです para apariencia: ✗ 降るそうです (esto es rumor)."
           },
           {
-            id: "T7b",
+            id: "C3A6",
             patron: "N2 みたいな N1 ／ N1 は N2 みたいです",
             significado: "Parecer / Ser como...",
             forma: "Sustantivo + みたいな + Sustantivo / Sustantivo + みたいです",
@@ -1018,7 +1064,7 @@ const GRAMATICA = [
               errores: "Usar みたい con adjetivos o verbos."
           },
           {
-            id: "E1",
+            id: "C3A7",
             patron: "イA／ナA／V-すぎます",
             significado: "Demasiado... / Exceso de...",
             forma: "Adjetivo い (quitar い) + すぎます / Adjetivo な (quitar な) + すぎます / Verbo en forma ます (sin ます) + すぎます",
@@ -1032,23 +1078,25 @@ const GRAMATICA = [
               errores: "Usar la forma diccionario antes de すぎます."
           },
           {
-            id: "S1b",
-            patron: "S（ふつうけい plain form）かもしれません",
+            id: "C3A8",
+            patron: "S（forma llana）かもしれません / S（forma llana） かもしれない / S（forma llana）かも",
             significado: "Puede que... / Quizás...",
-            forma: "Oración en forma llana + かもしれません",
-              explicacion: "Expresa una posibilidad o suposición con un grado de incertidumbre.",
+            forma: "Oración en forma diccionario + かもしれません",
+              explicacion: "Expresa una posibilidad o suposición con un grado de incertidumbre. En tono llano se usa かもしれない y en informal かも",
               ejemplos: [
                 { jp: "明日は雨が降るかもしれません。", es: "Puede que mañana llueva." },
-                { jp: "彼はもう帰ったかもしれません。", es: "Puede que él ya se haya ido a casa." }
+                { jp: "彼はもう帰ったかもしれません。", es: "Puede que él ya se haya ido a casa." },
+                { jp: "彼はもう帰ったかもしれない。", es: "Puede que él ya se haya ido a casa."},
+                { jp: "今日は遅くなるかも。", es: "Puede que hoy llegue tarde."},
               ],
-              excepciones: "En tono informal se usa かも.",
+              excepciones: "",
               errores: "Usar la forma cortés antes de かもしれません."
           },
           {
-            id: "S2",
+            id: "C3A9",
             patron: "〜のではないか（〜んじゃないか）",
             significado: "¿No será que...? / ¿No es posible que...?",
-            forma: "Forma llana + のではないか / んじゃないか",
+            forma: "Forma diccionario + のではないか / んじゃないか",
               explicacion: "El hablante propone una hipótesis con cierta duda.",
               ejemplos: [
                 { jp: "この店は高いのではないか。", es: "¿No será que esta tienda es cara?" },
@@ -1068,10 +1116,10 @@ const GRAMATICA = [
         nombre: "Causa y Contraste",
         usos: [
           {
-            id: "L1",
+            id: "C4C1",
             patron: "S1 から、S2",
             significado: "Como... / Porque... (Causa subjetiva)",
-            forma: "Oración 1 (forma llana o cortés) + から、Oración 2",
+            forma: "Oración 1 (forma diccionario o cortés) + から、Oración 2",
               explicacion: "Indica causa o razón. Es más subjetivo que ので y se usa mucho para dar excusas o justificar una opinión personal.",
               ejemplos: [
                 { jp: "時間がないから、行きません。", es: "Como no tengo tiempo, no voy." },
@@ -1081,10 +1129,10 @@ const GRAMATICA = [
               errores: "Usar から para causas objetivas en lenguaje escrito formal."
           },
           {
-            id: "L1b",
+            id: "C4C2",
             patron: "S1 ので、S2",
             significado: "Como... / Porque... (Causa objetiva)",
-            forma: "Oración 1 (forma llana o cortés) + ので、Oración 2",
+            forma: "Oración 1 (forma diccionario o cortés) + ので、Oración 2",
               explicacion: "Indica causa o razón. A diferencia de から, ので es más objetivo y suave, por lo que se usa para dar explicaciones lógicas, excusas formales o cuando quieres sonar educado.",
               ejemplos: [
                 { jp: "雨が降っているので、行きません。", es: "Como está lloviendo, no iré." },
@@ -1094,7 +1142,7 @@ const GRAMATICA = [
               errores: "Usarlo con peticiones directas o mandatos (para eso se usa から)."
           },
           {
-            id: "C1",
+            id: "C4C3",
             patron: "イA-いけど／ナA-だけど／N だけど、イA／ナA／…",
             significado: "Pero / Aunque... (Coloquial)",
             forma: "Adjetivo い + けど / Adjetivo な (sin な) + だけど / Sustantivo + だけど",
@@ -1108,7 +1156,7 @@ const GRAMATICA = [
               errores: "Olvidar el だ en adjetivos な y sustantivos."
           },
           {
-            id: "C2",
+            id: "C4C4",
             patron: "S1 が、S2",
             significado: "Pero / Sin embargo (Formal)",
             forma: "Oración 1 + が、Oración 2",
@@ -1121,23 +1169,26 @@ const GRAMATICA = [
               errores: "Usarlo en contextos demasiado informales."
           },
           {
-            id: "C4b",
+            id: "C4C5",
             patron: "イA-くても／なくても＿＿＿ ／ ナA／N でも／じゃなくても＿＿＿",
             significado: "Aunque... / Incluso si...",
             forma: "Adjetivo い (quitar い) + くても / Adjetivo な + でも / Sustantivo + でも",
               explicacion: "Expresa una condición que no cambia el resultado de la segunda parte.",
               ejemplos: [
                 { jp: "高くても、買います。", es: "Aunque sea caro, lo compraré." },
-                { jp: "雨でも、試合をします。", es: "Aunque llueva, jugaremos el partido." }
+                { jp: "雨でも、試合をします。", es: "Aunque llueva, jugaremos el partido." },
+                { jp: "安くなくても、いい物は買います。", es: "Aunque no sea barato, compro las cosas buenas." },
+                { jp: "便利でも、高いのは買いません。", es: "Aunque sea práctico, no compro lo caro." },
+                { jp: "有名じゃなくても、おいしい店はたくさんあります。", es: "Aunque no sean famosos, hay muchos restaurantes buenos." }
               ],
               excepciones: "Forma negativa: 〜なくても.",
               errores: "Usar la forma normal con ても: ✗ 高いても."
           },
           {
-            id: "C5",
+            id: "C4C6",
             patron: "S1 のに、S2",
             significado: "A pesar de que... / Aunque... (con queja o sorpresa)",
-            forma: "Oración 1 (forma llana) + のに、Oración 2",
+            forma: "Oración 1 (forma diccionario) + のに、Oración 2",
               explicacion: "Expresa una contradicción con un matiz de queja, decepción o sorpresa. A diferencia de が o けど, のに siempre conlleva una carga emocional.",
               ejemplos: [
                 { jp: "一生懸命勉強したのに、テストに落ちました。", es: "A pesar de que estudié duro, suspendí el examen." },
@@ -1152,7 +1203,7 @@ const GRAMATICA = [
         nombre: "Listas y Citas",
         usos: [
           {
-            id: "L3",
+            id: "C4L1",
             patron: "V-たり して、＿＿＿",
             significado: "Hacer cosas como... y (etcétera)",
             forma: "Verbo en forma た + り + して、Oración 2",
@@ -1165,8 +1216,8 @@ const GRAMATICA = [
               errores: "Usarlo con el verbo ます directamente."
           },
           {
-            id: "Q1",
-            patron: "S（ふつうけい plain form）と 思います",
+            id: "C4L2",
+            patron: "S（forma llana）と おもいます",
             significado: "Creo que... / Pienso que...",
             forma: "Oración en forma llana + と 思います",
               explicacion: "Expresa una opinión o suposición personal de forma suave.",
@@ -1178,8 +1229,8 @@ const GRAMATICA = [
               errores: "Usar la forma cortés antes de と."
           },
           {
-            id: "Q2",
-            patron: "S（ふつうけい plain form）と 言っていました",
+            id: "C4L3",
+            patron: "S（forma llana）と いっていました",
             significado: "Dijo que... / Estaba diciendo que...",
             forma: "Oración en forma llana + と 言っていました",
               explicacion: "Transmite lo que otra persona dijo.",
@@ -1191,7 +1242,7 @@ const GRAMATICA = [
               errores: "Usar la forma cortés antes de と."
           },
           {
-            id: "Q3",
+            id: "C4L4",
             patron: "〜ということです (Reporte)",
             significado: "Dicen que... / Quiere decir que...",
             forma: "Oración en forma llana + ということです",
@@ -1204,8 +1255,8 @@ const GRAMATICA = [
               errores: "Usarlo para experiencias propias directas."
           },
           {
-            id: "Q4",
-            patron: "S（いつ／どこ／…ふつうけい plain form）が、しっていますか／わかりますか",
+            id: "C4L5",
+            patron: "S（いつ／どこ／… forma llana）が、しっていますか／わかりますか",
             significado: "¿Sabes...? / ¿Entiendes...?",
             forma: "Oración interrogativa (forma llana) + が + しっていますか / わかりますか",
               explicacion: "Pregunta si alguien sabe o entiende algo.",
@@ -1222,7 +1273,7 @@ const GRAMATICA = [
         nombre: "Formas Corteses y Negación",
         usos: [
           {
-            id: "L2",
+            id: "C4F1",
             patron: "N／イA／ナA-です／でした／V-ます／ました (Repaso cortés)",
             significado: "Formas corteses (Presente/Pasado, Afirmativo/Negativo)",
             forma: "Sustantivo/Adjetivo + です / でした / じゃないです / じゃなかったです",
@@ -1230,20 +1281,24 @@ const GRAMATICA = [
               ejemplos: [
                 { jp: "学生です。", es: "Soy estudiante." },
                 { jp: "学生でした。", es: "Era estudiante." },
-                { jp: "学生じゃないです。", es: "No soy estudiante." }
+                { jp: "この本は面白いです。", es: "Este libro es interesante." },
+                { jp: "公園は静かでした。", es: "El parque estaba tranquilo." },
+                { jp: "毎朝コーヒーを飲みます。", es: "Todas las mañanas tomo café." },
+                { jp: "昨日、映画を見ました。", es: "Ayer vi una película." }
               ],
               excepciones: "Los verbos NO usan です para conjugar.",
               errores: "Mezclar la forma llana con la cortés."
           },
           {
-            id: "L5",
+            id: "C4F2",
             patron: "＿＿＿ないです／＿＿＿ありません",
             significado: "Negación (informal / formal)",
             forma: "Verbo en forma ない + です / Verbo en forma ます (sin ます) + ません",
               explicacion: "Repaso de las dos formas de negar.",
               ejemplos: [
                 { jp: "肉を食べないです。", es: "No como carne. (ないです)" },
-                { jp: "肉を食べません。", es: "No como carne. (ません)" }
+                { jp: "今日は時間がありません。", es: "Hoy no tengo tiempo." },
+                { jp: "彼は先生じゃありません。", es: "Él no es profesor." }
               ],
               excepciones: "ありません es la forma negativa de あります.",
               errores: "Mezclar formas: ✗ 食べませんです."
@@ -1259,7 +1314,7 @@ const GRAMATICA = [
         nombre: "Condicionales Básicos (と, たら, なら)",
         usos: [
           {
-            id: "C1",
+            id: "C5C1",
             patron: "V-と (Condicional natural)",
             significado: "Si / Cuando... (Consecuencia inevitable)",
             forma: "Verbo en forma diccionario + と",
@@ -1272,7 +1327,7 @@ const GRAMATICA = [
               errores: "Usarlo para invitaciones: ✗ 時間があると、映画を見ますか."
           },
           {
-            id: "C2",
+            id: "C5C2",
             patron: "V-たら (Condicional de situación)",
             significado: "Si / Cuando... (Hipótesis)",
             forma: "Verbo en forma た + ら",
@@ -1285,14 +1340,15 @@ const GRAMATICA = [
               errores: "Olvidar la ら final."
           },
           {
-            id: "C4",
+            id: "C5C3",
             patron: "N なら / V-のなら",
             significado: "Si es el caso de que... / Hablando de...",
             forma: "Sustantivo / Verbo en forma llana + なら",
               explicacion: "Da una recomendación o consejo basado en lo que acaba de decir la otra persona.",
               ejemplos: [
                 { jp: "日本に行くなら、京都がおすすめです。", es: "Si vas a Japón, te recomiendo Kioto." },
-                { jp: "あなたが行くなら、私も行きます。", es: "Si tú vas, yo también iré." }
+                { jp: "京都なら、この季節が一番きれいです。", es: "Si hablamos de Kioto, esta es la mejor época." },
+                { jp: "疲れているのなら、休んでください。", es: "Si estás cansado, descansa." }
               ],
               excepciones: "También se usa para expresar una condición hipotética.",
               errores: "Usarlo como un simple 'si' condicional."
@@ -1303,7 +1359,7 @@ const GRAMATICA = [
         nombre: "Condicionales Formales (ば, とすると)",
         usos: [
           {
-            id: "C3",
+            id: "C5F1",
             patron: "V-ば (Condicional formal)",
             significado: "Si... (Condición necesaria)",
             forma: "Grupo 1: U→E + ば / Grupo 2: quitar る + れば / Irregulares: すれば, くれば",
@@ -1316,7 +1372,7 @@ const GRAMATICA = [
               errores: "Usarlo con peticiones directas."
           },
           {
-            id: "C5",
+            id: "C5F2",
             patron: "V-ば〜ほど",
             significado: "Cuanto más... más...",
             forma: "Verbo en forma ば + Verbo en forma diccionario + ほど",
@@ -1329,14 +1385,15 @@ const GRAMATICA = [
               errores: "Usar verbos diferentes: ✗ 食べれば飲むほど."
           },
           {
-            id: "C6",
+            id: "C5F3",
             patron: "V-とすると / V-としたら",
             significado: "Suponiendo que... / Si asumimos que...",
             forma: "Verbo en forma diccionario + とすると / としたら",
               explicacion: "Para hacer una suposición hipotética.",
               ejemplos: [
                 { jp: "もし、宝くじが当たったとしたら、何をしますか。", es: "Si te tocara la lotería, ¿qué harías?" },
-                { jp: "明日、雨が降るとしたら、試合は中止です。", es: "Suponiendo que mañana llueva, el partido se cancela." }
+                { jp: "明日、雨が降るとしたら、試合は中止です。", es: "Suponiendo que mañana llueva, el partido se cancela." },
+                { jp: "今から出るとすると、９時には着きます。", es: "Si salimos ahora, llegaremos a las 9." }
               ],
               excepciones: "としたら es más coloquial.",
               errores: "Usarlo para hechos reales."
@@ -1352,8 +1409,8 @@ const GRAMATICA = [
         nombre: "Voz Pasiva y Causativa",
         usos: [
           {
-            id: "V1",
-            patron: "V-(ら)れます (Voz Pasiva)",
+            id: "C6V1",
+            patron: "V-(ら) れます (Voz Pasiva)",
             significado: "Ser hecho / Sufrir una acción",
             forma: "Grupo 1: U→A+れます / Grupo 2: quitar る+られます / Irregulares: されます, こられます",
               explicacion: "El sujeto recibe la acción de otra persona. Se usa mucho para molestias (pasiva de sufrimiento).",
@@ -1365,8 +1422,8 @@ const GRAMATICA = [
               errores: "Olvidar la partícula に: ✗ 先生が褒められました."
           },
           {
-            id: "V2",
-            patron: "V-(さ)せます (Voz Causativa)",
+            id: "C6V2",
+            patron: "V-(さ) せます (Voz Causativa)",
             significado: "Hacer que alguien haga / Dejar que haga",
             forma: "Grupo 1: U→A+せます / Grupo 2: る→させます / Irregulares: させます, こさせます",
               explicacion: "El sujeto obliga o permite a otro hacer algo.",
@@ -1378,8 +1435,8 @@ const GRAMATICA = [
               errores: "Usar を con intransitivos: ✗ 学生を走らせました."
           },
           {
-            id: "V3",
-            patron: "V-(さ)せて ください",
+            id: "C6V3",
+            patron: "V-(さ) せて ください",
             significado: "Por favor, déjame hacer... / Permíteme hacer...",
             forma: "Verbo en forma causativa + て + ください",
               explicacion: "Pedir permiso para hacer algo uno mismo de forma educada.",
@@ -1391,8 +1448,8 @@ const GRAMATICA = [
               errores: "Confundirlo con てください."
           },
           {
-            id: "V4",
-            patron: "V-(さ)せて いただきます",
+            id: "C6V4",
+            patron: "V-(さ) せて いただきます",
             significado: "Permítame hacer... (Humilde)",
             forma: "Verbo en forma causativa + て + いただきます",
               explicacion: "Expresa humildemente que uno va a realizar una acción.",
@@ -1403,14 +1460,15 @@ const GRAMATICA = [
               errores: "Usarlo para acciones de otras personas."
           },
           {
-            id: "V5",
-            patron: "A は B に V-（ら）れます／A は B に N を V-（ら）れます",
+            id: "C6V5",
+            patron: "A は B に V-(ら) れます／A は B に N を V-(ら) れます",
             significado: "Sufrir que alguien haga algo a una parte de mi cuerpo",
             forma: "A (víctima) は + B (agente) に + (N を) + Verbo pasivo",
               explicacion: "Se usa cuando alguien (B) realiza una acción que afecta al sujeto (A), ya sea directamente o a través de una posesión.",
               ejemplos: [
                 { jp: "私は友達に足を踏まれました。", es: "Mi amigo me pisó el pie." },
-                { jp: "私は泥棒に財布を盗まれました。", es: "El ladrón me robó la cartera." }
+                { jp: "私は泥棒に財布を盗まれました。", es: "El ladrón me robó la cartera." },
+                { jp: "昨日、雨に降られました。", es: "Ayer me pilló la lluvia." }
               ],
               excepciones: "El agente siempre lleva la partícula に.",
               errores: "Usar la partícula が para la parte del cuerpo: ✗ 足が踏まれました."
@@ -1421,7 +1479,7 @@ const GRAMATICA = [
         nombre: "Dar y Recibir Favores",
         usos: [
           {
-            id: "F1",
+            id: "C6D1",
             patron: "A は B に C を あげます",
             significado: "Dar (desde la perspectiva de A)",
             forma: "A (dador) は B (receptor) に C (objeto) を あげます",
@@ -1433,19 +1491,20 @@ const GRAMATICA = [
               errores: "Usarlo si el dador soy yo y el receptor es mi superior."
           },
           {
-            id: "F2",
+            id: "C6D2",
             patron: "B は A に／から C を もらいます",
             significado: "Recibir (desde la perspectiva de B)",
             forma: "B (receptor) は A (dador) に/から C (objeto) を もらいます",
               explicacion: "Indica que alguien recibe algo de otra persona.",
               ejemplos: [
-                { jp: "私は友達にプレゼントをもらいました。", es: "Recibí un regalo de mi amigo." }
+                { jp: "私は友達にプレゼントをもらいました。", es: "Recibí un regalo de mi amigo." },
+                { jp: "私は母から手紙をもらいました。", es: "Recibí una carta de mi madre." }
               ],
               excepciones: "に y から son intercambiables en la mayoría de los casos.",
               errores: "Usarlo si yo soy el dador."
           },
           {
-            id: "F3",
+            id: "C6D3",
             patron: "N（ひと）は／が V-て くれます",
             significado: "Alguien me hace un favor a mí",
             forma: "Persona + は/が + Verbo en forma て + くれます",
@@ -1457,7 +1516,7 @@ const GRAMATICA = [
               errores: "Usarlo para favores que yo hago: ✗ 私が友達に教えてくれました."
           },
           {
-            id: "F4",
+            id: "C6D4",
             patron: "N（ひと）に V-て もらいます",
             significado: "Recibir un favor de alguien",
             forma: "Persona (receptor) + は + Persona (dador) + に + Verbo en forma て + もらいます",
@@ -1479,8 +1538,8 @@ const GRAMATICA = [
         nombre: "Cantidades y Distribución",
         usos: [
           {
-            id: "Q1",
-            patron: "N（かず quantity）ずつ",
+            id: "C7Q1",
+            patron: "N（かず cantidad）ずつ",
             significado: "Cada uno / En cantidades de...",
             forma: "Cantidad + ずつ",
               explicacion: "Se usa para indicar que algo se reparte en cantidades iguales o que se hace de forma repetida.",
@@ -1492,8 +1551,8 @@ const GRAMATICA = [
               errores: "Usarlo con el contador en lugar de la cantidad."
           },
           {
-            id: "Q2",
-            patron: "N（かず quantity）で＋V",
+            id: "C7Q2",
+            patron: "N（かず cantidad）で ＋ V",
             significado: "Entre X personas / En grupos de X",
             forma: "Cantidad + で + Verbo",
               explicacion: "Indica el número de personas que realizan una acción de forma conjunta, o el precio total de un grupo de cosas.",
@@ -1505,8 +1564,8 @@ const GRAMATICA = [
               errores: "Usar に en lugar de で."
           },
           {
-            id: "Q4",
-            patron: "(数量) も",
+            id: "C7Q4",
+            patron: "(かず cantidad) も",
             significado: "¡Hasta...! / ¡Nada menos que...!",
             forma: "Cantidad + も + Verbo",
               explicacion: "Enfatiza una cantidad, a menudo con sorpresa.",
@@ -1517,7 +1576,7 @@ const GRAMATICA = [
               errores: "Usar を con も."
           },
           {
-            id: "Q5",
+            id: "C7Q5",
             patron: "N / V-て ばかり います",
             significado: "Solo / Únicamente (con matiz negativo o de exceso)",
             forma: "Sustantivo + ばかり / Verbo en forma て + ばかりいます",
@@ -1530,7 +1589,7 @@ const GRAMATICA = [
               errores: "Confundirlo con だけ (solo neutral): 水ばかり飲んでいます (No hago más que beber agua / Bebo demasiada agua) vs 水だけ飲みます (Solo bebo agua)."
           },
           {
-            id: "Q6",
+            id: "C7Q6",
             patron: "N さえ",
             significado: "Incluso... / Hasta...",
             forma: "Sustantivo + さえ",
@@ -1548,7 +1607,7 @@ const GRAMATICA = [
         nombre: "Comparaciones y Preferencias",
         usos: [
           {
-            id: "CP1",
+            id: "C7CP1",
             patron: "N1 と N2（と）どちらが いいですか／N1 が いいです",
             significado: "¿Cuál es mejor, N1 o N2? / Prefiero N1",
             forma: "N1 + と + N2 + (と) + どちらが + いいですか",
@@ -1561,7 +1620,7 @@ const GRAMATICA = [
               errores: "Usar どれ para dos opciones."
           },
           {
-            id: "CP2",
+            id: "C7CP2",
             patron: "(N1 より) N2 のほうが 〜です",
             significado: "N2 es más... (que N1)",
             forma: "(N1 + より) + N2 + の + ほうが + Adjetivo + です",
@@ -1574,7 +1633,7 @@ const GRAMATICA = [
               errores: "Olvidar el の antes de ほう."
           },
           {
-            id: "CP4",
+            id: "C7CP4",
             patron: "V1-る より V2-る ほうが イA／ナA です",
             significado: "Hacer V2 es más [adjetivo] que hacer V1",
             forma: "Verbo 1 en forma diccionario + より + Verbo 2 en forma diccionario + ほうが + Adjetivo",
@@ -1591,7 +1650,7 @@ const GRAMATICA = [
         nombre: "Definiciones y Explicaciones",
         usos: [
           {
-            id: "D1",
+            id: "C7D1",
             patron: "＿＿＿ と いう いみ",
             significado: "El significado de... / ¿Qué significa...?",
             forma: "Palabra/Frase + と いう + 意味 (いみ)",
@@ -1604,7 +1663,7 @@ const GRAMATICA = [
               errores: "Usar と いう sin la palabra o frase."
           },
           {
-            id: "D2",
+            id: "C7D2",
             patron: "N1 と いう N2",
             significado: "N2 llamado N1 / N2 que se llama N1",
             forma: "N1 + と いう + N2",
@@ -1624,64 +1683,195 @@ const GRAMATICA = [
     categoria: "8. Keigo (Lenguaje Honorífico y Formal)",
     subcategorias: [
       {
-        nombre: "Kenjougo (Lenguaje Humilde)",
+        nombre: "Sonkeigo (Respetuoso: Para ellos/superiores)",
         usos: [
           {
-            id: "K1",
-            patron: "いたします (Forma humilde de する)",
-            significado: "Hacer (Humilde)",
-            forma: "Sustantivo (acción) + いたします / お + Raíz del verbo + いたします",
-              explicacion: "Es la forma humilde del verbo する. Se usa para rebajar las propias acciones ante un superior o cliente. No es una regla exclusiva de お願い; se usa con cualquier acción propia (ej. ご連絡いたします - le contactaré; お待ちいたします - le esperaré).",
+            id: "C8S1",
+            patron: "いらっしゃる / おみえになる",
+            significado: "Ir / Venir / Estar (Respetuoso)",
+            forma: "Sustituye a 行く, 来る, いる",
+              explicacion: "Eleva las acciones del interlocutor. Se usa con jefes, clientes o personas mayores.",
               ejemplos: [
-                { jp: "資料をお送りいたします。", es: "Le enviaré los documentos. (Humilde)" },
-                { jp: "私がご案内いたします。", es: "Yo le guiaré. (Humilde)" }
+                { jp: "社長はいらっしゃいますか？", es: "¿Está el presidente?" },
+                { jp: "明日、お客様がいらっしゃいます。", es: "Mañana vendrá un cliente." },
+                { jp: "お客様がお見えになりました。", es: "Ha llegado el cliente." }
               ],
-              excepciones: "No se usa para acciones de terceras personas.",
-              errores: "Usarlo de forma incorrecta con la raíz de un verbo que no admite el prefijo お/ご."
+              excepciones: "No se usa para acciones propias.",
+              errores: "Usarlo para mí mismo (usa Kenjougo)."
           },
           {
-            id: "K2",
-            patron: "V-て おります",
-            significado: "Estar haciendo... (Humilde)",
-            forma: "Verbo en forma て + おります",
-              explicacion: "Es la forma humilde de 〜ています. Se usa para describir el estado o acción propia (o de la empresa) ante un cliente o superior.",
+            id: "C8S2",
+            patron: "おっしゃる",
+            significado: "Decir (Respetuoso)",
+            forma: "Sustituye a 言う",
+              explicacion: "Forma elevada de 'decir'. Muy común en negocios.",
               ejemplos: [
-                { jp: "ただいま、準備しております。", es: "Ahora mismo estoy preparándolo." },
-                { jp: "東京に住んでおります。", es: "Resido en Tokio." }
+                { jp: "先生は何とおっしゃいましたか？", es: "¿Qué dijo el profesor?" }
               ],
-              excepciones: "Nunca se usa para describir acciones de otras personas.",
-              errores: "Usarlo para describir lo que hace el cliente."
+              excepciones: "",
+              errores: ""
           },
           {
-            id: "K3",
-            patron: "V-て まいります",
-            significado: "Ir y volver / Hacer algo (Humilde)",
-            forma: "Verbo en forma て + まいります",
-              explicacion: "Es la forma humilde de 〜てきます. Se usa en atención al cliente cuando el empleado va a hacer algo y volver.",
+            id: "C8S3",
+            patron: "ごらんになる",
+            significado: "Ver/Mirar (Respetuoso)",
+            forma: "Sustituye a 見る",
+              explicacion: "Invitar al interlocutor a ver algo con respeto.",
               ejemplos: [
-                { jp: "コーヒーをお持ちしてまいります。", es: "Le traigo el café (ahora mismo)." }
+                { jp: "カタログをご覧になりますか？", es: "¿Quiere mirar el catálogo?" }
               ],
-              excepciones: "Solo para acciones propias.",
-              errores: "Usarlo para acciones del cliente."
+              excepciones: "",
+              errores: ""
+          },
+          {
+            id: "C8S4",
+            patron: "めしあがる",
+            significado: "Comer/Beber (Respetuoso)",
+            forma: "Sustituye a 食べる, 飲む",
+              explicacion: "Ofrecer comida o bebida al interlocutor.",
+              ejemplos: [
+                { jp: "何か召し上がりますか？", es: "¿Le apetece tomar algo?" }
+              ],
+              excepciones: "",
+              errores: ""
+          },
+          {
+            id: "C8S5",
+            patron: "なさる",
+            significado: "Hacer (Respetuoso)",
+            forma: "Sustituye a する",
+              explicacion: "Forma elevada de 'hacer'. A menudo se combina con prefijos honoríficos (ご～なさる).",
+              ejemplos: [
+                { jp: "ご検討なさってください。", es: "Por favor, considérelo." }
+              ],
+              excepciones: "",
+              errores: ""
+          },
+          {
+            id: "C8S6",
+            patron: "お/ご + V + になる",
+            significado: "Hacer (Respetuoso, regla general)",
+            forma: "お + Raíz del verbo (forma ます sin ます) + になります / ご + Sustantivo sino-japonés + になります",
+              explicacion: "Regla general para elevar las acciones del interlocutor con casi cualquier verbo que no tenga una forma honorífica propia. Con verbos de origen japonés se usa お + raíz; con verbos de origen sino-japonés (los que llevan する), ご + sustantivo.",
+              ejemplos: [
+                { jp: "先生がお書きになりました。", es: "El profesor lo escribió (respetuoso)." },
+                { jp: "部長はもうお帰りになりました。", es: "El jefe de departamento ya se ha ido a casa." },
+                { jp: "こちらをご利用になりますか。", es: "¿Va a usar esto?" }
+              ],
+              excepciones: "Los verbos con forma honorífica propia (いらっしゃる, おっしゃる, 召し上がる, ご覧になる, なさる) usan esa forma, no este patrón.",
+              errores: "Usarlo para acciones propias (usa お/ご + V + する). Usar お con un verbo sino-japonés (✗ お利用になる → ✓ ご利用になる)."
           }
         ]
       },
       {
-        nombre: "Teineigo (Lenguaje Cortés Extremo)",
+        nombre: "Kenjougo (Humilde: Para mí/inferior ante superior)",
         usos: [
           {
-            id: "K4",
-            patron: "～でございます",
-            significado: "Ser... (Muy formal)",
-            forma: "Sustantivo + でございます",
-              explicacion: "Es la versión ultra-formal de です. Se usa en tiendas de lujo, hoteles o anuncios oficiales para elevar el nivel de cortesía.",
+            id: "C8K1",
+            patron: "いたします / いたす",
+            significado: "Hacer (Humilde)",
+            forma: "Sustantivo + いたします / お+Raíz+いたします",
+              explicacion: "Rebaja las acciones del hablante. Es la base del lenguaje de negocios.",
               ejemplos: [
-                { jp: "こちらでございます。", es: "Es por aquí. (Muy formal)" },
-                { jp: "私は田中でございます。", es: "Soy Tanaka. (Muy formal)" }
+                { jp: "資料をお送りいたします。", es: "Le enviaré los documentos." },
+                { jp: "承知いたしました。", es: "Entendido/Recibido." }
               ],
-              excepciones: "No se usa con adjetivos い directamente.",
-              errores: "Usarlo en conversaciones normales del día a día."
+              excepciones: "No se usa para acciones del cliente.",
+              errores: "Usarlo para lo que hace otra persona."
+          },
+          {
+            id: "C8K2",
+            patron: "V-て おります",
+            significado: "Estar haciendo (Humilde)",
+            forma: "Verbo Forma て + おります",
+              explicacion: "Describe el estado o acción propia ante un superior.",
+              ejemplos: [
+                { jp: "ただいま準備しております。", es: "Ahora mismo estoy preparando." }
+              ],
+              excepciones: "",
+              errores: ""
+          },
+          {
+            id: "C8K3",
+            patron: "まいる",
+            significado: "Ir/Venir (Humilde)",
+            forma: "Sustituye a 行く, 来る",
+              explicacion: "Forma humilde de ir o venir. La usa el hablante para sus propias acciones de movimiento.",
+              ejemplos: [
+                { jp: "すぐに参ります。", es: "Voy enseguida." },
+                { jp: "来週、東京へ参ります。", es: "La semana que viene iré a Tokio." }
+              ],
+              excepciones: "",
+              errores: ""
+          },
+          {
+            id: "C8K4",
+            patron: "もうす",
+            significado: "Decir/Llamarse (Humilde)",
+            forma: "Sustituye a 言う, 名乗る",
+              explicacion: "Presentación personal o informar algo propio.",
+              ejemplos: [
+                { jp: "田中と申します。", es: "Me llamo Tanaka." }
+              ],
+              excepciones: "",
+              errores: ""
+          },
+          {
+            id: "C8K5",
+            patron: "いただく",
+            significado: "Recibir/Comer/Beber (Humilde)",
+            forma: "Sustituye a もらう, 食べる, 飲む",
+              explicacion: "Recibir un favor o consumir algo dado por otro.",
+              ejemplos: [
+                { jp: "コーヒーをいただきました。", es: "Tomé café (recibido de alguien)." }
+              ],
+              excepciones: "",
+              errores: ""
+          },
+          {
+            id: "C8K6",
+            patron: "お/ご + V + する",
+            significado: "Hacer algo por/para alguien (Humilde, regla general)",
+            forma: "お + Raíz del verbo (forma ます sin ます) + します / ご + Sustantivo sino-japonés + します",
+              explicacion: "Regla general para rebajar las acciones propias cuando se dirigen a una persona a la que se respeta. Con いたします se vuelve aún más humilde (お持ちいたします).",
+              ejemplos: [
+                { jp: "荷物をお持ちします。", es: "Le llevo el equipaje." },
+                { jp: "先生にお会いしました。", es: "Tuve ocasión de ver al profesor." },
+                { jp: "駅までご案内します。", es: "Le acompaño hasta la estación." }
+              ],
+              excepciones: "Los verbos con forma humilde propia (言う → 申す, 行く → 参る / 伺う, もらう → いただく, 見る → 拝見する) usan esa forma, no este patrón.",
+              errores: "Usarlo para acciones del interlocutor (usa お/ご + V + になる)."
           }
+        ]
+      },
+      {
+        nombre: "Teineigo (Cortés Estándar/Formal)",
+        usos: [
+          {
+            id: "C8T1",
+            patron: "～でございます",
+            significado: "Ser/Estar (Formal/Ultra-cortés)",
+            forma: "Sustantivo + でございます",
+              explicacion: "Versión muy formal de です. Usada en presentaciones oficiales o hostelería de lujo.",
+              ejemplos: [
+                { jp: "こちらは本館でございます。", es: "Este es el edificio principal." }
+              ],
+              excepciones: "Funcionalmente actúa como marcador de formalidad alta neutro.",
+              errores: "Usarlo en conversaciones normales del día a día."
+          },
+          {
+            id: "C8T2",
+            patron: "お/ご + Sustantivo",
+            significado: "Prefijos honoríficos",
+            forma: "O + Kana/Japonés nativo | Go + Kanji/Sino-japonés",
+              explicacion: "Marcadores universales de cortesía que acompañan a sustantivos.",
+              ejemplos: [
+                { jp: "お手洗い (otearai)", es: "Baño (Cortés)" },
+                { jp: "ご相談 (gosoudan)", es: "Consulta (Cortés)" }
+              ],
+              excepciones: "Algunas palabras sino-japonesas llevan お: お電話, お食事, お時間, お茶. También hay palabras nativas con ご: ごゆっくり.",
+              errores: ""
+          },
         ]
       }
     ]

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manual de Japonés</title>
+<title>Chuleta de Japonés</title>
 <script>
   try { const t = localStorage.getItem('tema'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
@@ -75,7 +75,7 @@
   .search-box:focus { border-color: var(--accent-jp); }
   .filter-select { padding: 0.6rem 1rem; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text-primary); font-size: 0.9rem; cursor: pointer; outline: none; }
 
-  .vocab-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .vocab-list { background: transparent; border: none; }
   .vocab-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem; }
   .vocab-meta { display: flex; gap: 1rem; align-items: center; }
   .vocab-level { font-size: 0.75rem; color: var(--text-muted); }
@@ -184,7 +184,7 @@
 <body>
 
 <div class="topbar">
-  <span class="brand-title">Manual de Japonés</span>
+  <span class="brand-title">Chuleta de Japonés</span>
   <div class="theme-picker">
      <label for="themeSelect">Tema</label>
      <select id="themeSelect" class="theme-select" onchange="cambiarTema(this.value)">
@@ -215,8 +215,8 @@
       <div id="gramSidebar" class="gram-tree"></div>
     </div>
     <div class="gram-content" id="gramContent">
-      <button class="gram-back" onclick="volverALista()">← Volver a temas</button>
       <div id="gramHeader" class="gram-header">
+        <button class="gram-back" onclick="volverALista()">← Volver a temas</button>
         <h2 id="gramSubcategoryTitle" class="gram-title">Subcategoría</h2>
       </div>
       <div id="gramRulesList" class="gram-rules">
