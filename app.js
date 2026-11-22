@@ -304,7 +304,6 @@ function cerrarModal(modalId) {
   const modal = document.getElementById(modalId);
   if (modal) {
     modal.remove();
-    document.removeEventListener('keydown', escModal);
     document.body.style.overflow = '';
   }
 }
@@ -505,7 +504,7 @@ function mostrarSubcategoria(catIndex, subIndex) {
     <div class="rule-examples-title">Ejemplos</div>
     ${uso.ejemplos.map(e => `
       <div class="rule-example">
-      <div class="rule-example-jp">${e.jp}</div>
+      <div class="rule-example-jp">${furigana(e.jp)}</div>
       <div class="rule-example-es">${e.es}</div>
       </div>`).join('')}
       </div>
@@ -621,12 +620,29 @@ function cambiarTema(valor) {
   } catch (e) {}
 }
 
+function furigana(texto) {
+  return texto.replace(/([\u3400-\u9fff々]+)\[([^\]]+)\]/g, '<ruby>$1<rt>$2</rt></ruby>');
+}
+
+function aplicarFurigana(activo) {
+  document.getElementById('panel-gramatica').classList.toggle('sin-furigana', !activo);
+  const btn = document.getElementById('furiganaBtn');
+  if (btn) btn.textContent = 'Furigana: ' + (activo ? 'sí' : 'no');
+}
+
+function cambiarFurigana() {
+  const activo = document.getElementById('panel-gramatica').classList.contains('sin-furigana');
+  aplicarFurigana(activo);
+  try { localStorage.setItem('furigana', activo ? 'on' : 'off'); } catch (e) {}
+}
+
 // ==========================================
 // 3. INICIALIZACIÓN
 // ==========================================
 
 document.addEventListener('DOMContentLoaded', () => {
   try { const t = localStorage.getItem('tema'); document.getElementById('themeSelect').value = (t === 'light' || t === 'dark') ? t : 'system'; } catch (e) {}
+  try { aplicarFurigana(localStorage.getItem('furigana') !== 'off'); } catch (e) { aplicarFurigana(true); }
 
   renderVocabulario();
   renderGramaticaSidebar();

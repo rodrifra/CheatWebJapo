@@ -21,6 +21,7 @@
     --accent-jp-soft: light-dark(#f4dcd8, #3a2420);
     --example-jp: light-dark(#1d6fa5, #9cdcfe);
     --sel-jp: light-dark(#0f766e, #fb923c);
+    --furigana-jp: light-dark(#1a1814, #f0ede8);
     --font-jp: 'Noto Serif JP', 'Noto Serif CJK JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
     --font-body: 'Inter', system-ui, sans-serif; --radius: 10px;
   }
@@ -124,7 +125,7 @@
   .tab-panel.panel-full { padding: 0; max-width: 100%; margin: 0; height: calc(100vh - 113px); }
   .gram-layout { display: flex; height: 100%; background: var(--surface); }
   .gram-sidebar { width: 300px; border-right: 1px solid var(--border); background: var(--bg); overflow-y: auto; flex-shrink: 0; display: flex; flex-direction: column; }
-  .gram-sidebar-title { padding: 1rem; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .gram-sidebar-title { padding: 1rem; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
   .gram-search { padding: 0.8rem; border-bottom: 1px solid var(--border); position: relative; }
   .gram-search-icon { position: absolute; left: 1.3rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem; }
   .gram-search-input { width: 100%; padding: 0.6rem 2.5rem; border: 1px solid var(--border-strong); border-radius: 6px; background: var(--surface); color: var(--text-primary); font-size: 0.85rem; outline: none; }
@@ -144,7 +145,7 @@
   .sub-cat.active { border-left-color: var(--sel-jp); color: var(--sel-jp); font-weight: bold; background: var(--bg); }
   .sub-count { font-size: 0.75rem; opacity: 0.7; }
   .search-cat { padding: 1rem; font-weight: bold; color: var(--accent-jp); border-bottom: 1px solid var(--border); margin-top: 0.5rem; font-size: 0.9rem; }
-    .rule-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+  .rule-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
   .rule-pattern { margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--text-primary); }
   .rule-meaning { color: var(--accent-jp); font-weight: bold; font-size: 0.9rem; margin-bottom: 1rem; }
   .rule-form { font-size: 0.9rem; margin-bottom: 0.5rem; }
@@ -163,6 +164,12 @@
   .side-error { color: red; text-align: left; }
   .conj-table .conj-label-accent { color: var(--accent-jp); }
   .conj-table .conj-section { color: var(--accent-jp); padding-top: 1rem; }
+  .gram-title-row { display: flex; justify-content: space-between; align-items: center; gap: 0.8rem; }
+  .furi-btn { padding: 0.25rem 0.7rem; border: 1px solid var(--accent-jp); border-radius: 6px; background: transparent; color: var(--accent-jp); font-size: 0.75rem; font-weight: normal; text-transform: none; cursor: pointer; white-space: nowrap; }
+  .rule-example-jp ruby { ruby-position: over; ruby-align: center; }
+  .rule-example-jp rt { font-size: 0.5em; color: var(--furigana-jp); font-family: var(--font-body); }
+  .sin-furigana .rule-example-jp rt { display: none; }
+  .sin-furigana .rule-example-jp { line-height: 1.6; }
 
   /* RESPONSIVE */
   @media (max-width: 600px) {
@@ -206,7 +213,10 @@
 <div class="tab-panel panel-full" id="panel-gramatica">
   <div id="gramLayout" class="gram-layout">
     <div class="gram-sidebar">
-      <div class="gram-sidebar-title">Temas de Gramática</div>
+      <div class="gram-sidebar-title">
+       <span>Temas de Gramática</span>
+        <button id="furiganaBtn" class="furi-btn" onclick="cambiarFurigana()">Furigana: sí</button>
+      </div>
       <div class="gram-search">
         <span class="gram-search-icon">🔍</span>
         <input type="text" id="gramSearchInput" class="gram-search-input" placeholder="Buscar regla..." oninput="filtrarGramatica()">
