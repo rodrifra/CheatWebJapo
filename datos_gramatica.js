@@ -247,7 +247,7 @@ const GRAMATICA = [
             forma: "Verbo en forma て + います",
               explicacion: "Describe una acción que está ocurriendo ahora o en un periodo presente. Solo con verbos de acción continua, no con estados.",
               ejemplos: [
-                { jp: "今[いま]、ごはんを食[た]べています。", es: "Ahora estoy comiendo." },
+                { jp: "今[いま]、ご飯[はん]を食[た]べています。", es: "Ahora estoy comiendo." },
                 { jp: "雨[あめ]が降[ふ]っています。", es: "Está lloviendo." }
               ],
               excepciones: "Verbos de estado (ある, いる, 分かる) no se usan con esta forma.",
@@ -703,7 +703,7 @@ const GRAMATICA = [
               explicacion: "Indica un cambio de estado en el que una acción que antes se realizaba ha dejado de hacerse.",
               ejemplos: [
                 { jp: "最近[さいきん]、肉[にく]を食[た]べなくなりました。", es: "Últimamente he dejado de comer carne." },
-                { jp: "子供[こども]のときは、野菜[やさい]が好[す]きじゃなかったですが、今[いま]は食[た]べるようになりました。", es: "Cuando era niño no me gustaban las verduras, pero ahora he llegado a comerlas." }
+                { jp: "子供[こども]の時[とき]は、野菜[やさい]が好[す]きじゃなかったですが、今[いま]は食[た]べるようになりました。", es: "Cuando era niño no me gustaban las verduras, pero ahora he llegado a comerlas." }
               ],
               excepciones: "Para cambios en adjetivos い, se usa 〜く なりました.",
               errores: "Usar la forma diccionario con なく: ✗ 食べるなくなりました."
